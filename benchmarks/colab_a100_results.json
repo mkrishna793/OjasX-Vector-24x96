@@ -1,0 +1,172 @@
+{
+  "timestamp": "2026-11-04T16:59:05.843939+00:00",
+  "hardware": {
+    "timestamp": "2026-11-04T16:56:43.925775+00:00",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "python_version": "3.13.16",
+    "pytorch_version": "2.11.0+cu130",
+    "cuda_available": true,
+    "cuda_version": "13.0",
+    "cpu_count": 12,
+    "cpu_ram_bytes": 179370455040,
+    "cpu_ram_gb": 167.05,
+    "gpu_name": "NVIDIA A100-SXM4-80GB",
+    "gpu_count": 1,
+    "gpu_vram_bytes": 85094825984,
+    "gpu_vram_gb": 79.25,
+    "gpu_sm_capability": [
+      8,
+      0
+    ],
+    "gpu_multi_processor_count": 108,
+    "nvcc_available": true,
+    "nvcc_path": "/usr/local/cuda/bin/nvcc",
+    "nvcc_version": "Build cuda_13.0.r13.0/compiler.36424714_0"
+  },
+  "test_1_cuda_kernels": {
+    "cuda_source_path": "/content/ojasx_24x96/native/vq_kernels_cuda.cu",
+    "cuda_source_exists": true,
+    "output_lib_path": "/tmp/libojasx_vq_cuda.so",
+    "compiled_successfully": true,
+    "compile_time_sec": 1.344,
+    "rvq_fused_gemv": {
+      "batch_size": 4,
+      "rows": 128,
+      "columns": 256,
+      "max_abs_diff_vs_reference": 1.1444091796875e-05,
+      "passed_accuracy_check": true,
+      "latency_us": 30.7,
+      "throughput_gflops": 8.54
+    },
+    "leech24_fused_gemv": {
+      "batch_size": 4,
+      "rows": 128,
+      "columns": 240,
+      "max_abs_diff_vs_reference": 9.5367431640625e-06,
+      "passed_accuracy_check": true,
+      "latency_us": 26.19,
+      "throughput_gflops": 9.38
+    }
+  },
+  "test_2_large_matrix_quantization": {
+    "matrix_4096x4096_bf16": {
+      "rows": 4096,
+      "columns": 4096,
+      "original_dense_bytes": 33554432,
+      "original_dense_mb": 32.0,
+      "leech24": {
+        "stored_bytes": 3606046,
+        "compression_ratio": 9.305,
+        "measured_bits_per_weight": 1.719,
+        "relative_reconstruction_error": 0.4073,
+        "quantization_time_sec": 9.39
+      },
+      "rvq": {
+        "stored_bytes": 2114560,
+        "compression_ratio": 15.868,
+        "measured_bits_per_weight": 1.008,
+        "relative_reconstruction_error": 0.6232,
+        "quantization_time_sec": 0.752
+      }
+    },
+    "matrix_4096x11008_bf16": {
+      "rows": 4096,
+      "columns": 11008,
+      "original_dense_bytes": 90177536,
+      "original_dense_mb": 86.0,
+      "leech24": {
+        "stored_bytes": 9651744,
+        "compression_ratio": 9.343,
+        "measured_bits_per_weight": 1.712,
+        "relative_reconstruction_error": 0.4074,
+        "quantization_time_sec": 25.157
+      },
+      "rvq": {
+        "stored_bytes": 5653504,
+        "compression_ratio": 15.951,
+        "measured_bits_per_weight": 1.003,
+        "relative_reconstruction_error": 0.6227,
+        "quantization_time_sec": 2.084
+      }
+    }
+  },
+  "test_3_pretrained_hf_model": {
+    "model_id": "Qwen/Qwen2.5-0.5B",
+    "mode": "real_pretrained",
+    "m0_introspection": {
+      "model_type": "qwen2",
+      "architecture_class": "Qwen2ForCausalLM",
+      "hidden_size": 896,
+      "intermediate_size": 4864,
+      "num_hidden_layers": 24,
+      "num_attention_heads": 14,
+      "num_key_value_heads": 2,
+      "head_dim": 64,
+      "vocab_size": 151936,
+      "is_moe": false,
+      "is_hybrid_attention": false,
+      "admission_80gb": {
+        "budget_gb": 80.0,
+        "total_required_gb": 0.515,
+        "headroom_gb": 79.485,
+        "admitted": true,
+        "buckets": {
+          "encoded_weights_mb": 448.71,
+          "dense_weights_mb": 0.0,
+          "kv_cache_mb": 48.0,
+          "activation_prefill_mb": 12.38,
+          "activation_decode_mb": 0.02,
+          "workspace_mb": 1.19,
+          "runtime_overhead_mb": 16.0
+        }
+      },
+      "admission_24gb": {
+        "budget_gb": 24.0,
+        "total_required_gb": 0.515,
+        "headroom_gb": 23.485,
+        "admitted": true
+      }
+    },
+    "m2_streaming_ingest": {
+      "total_tensors": 290,
+      "quantized_tensors": 14,
+      "passthrough_tensors": 276,
+      "compression_ratio": 1.057,
+      "peak_single_tensor_bytes": 272269312
+    },
+    "m1_oqpack": {
+      "verified_integrity": true,
+      "manifest_schema": "oqpack.v1",
+      "shard_count": 14,
+      "reloaded_exact_parity": true
+    },
+    "m3_quality_certificate": {
+      "passed": true,
+      "failed_checks": [],
+      "baseline_perplexity": 63.89,
+      "quantized_perplexity": 63.3,
+      "perplexity_delta": -0.59,
+      "mean_kl_divergence": 0.0006,
+      "max_kl_divergence": 0.0029,
+      "top1_agreement": 0.978,
+      "top5_agreement": 1.0,
+      "compression_ratio": 1.002
+    },
+    "m4_kv_engine": {
+      "cached_vs_uncached_parity": true,
+      "max_logit_abs_diff": 3.3855438232421875e-05,
+      "turn_1": {
+        "prefill_tokens": 10,
+        "decode_steps": 5,
+        "generated_text": "ular lattice in $\\math",
+        "kv_cache_bytes": 368640
+      },
+      "turn_2": {
+        "prefill_tokens": 6,
+        "decode_steps": 5,
+        "generated_text": "representations of quantum states.",
+        "kv_cache_bytes": 638976
+      }
+    }
+  }
+}

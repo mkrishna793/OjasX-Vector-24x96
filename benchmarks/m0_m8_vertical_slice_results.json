@@ -1,0 +1,107 @@
+{
+  "pipeline_name": "OjasX-24X96 M0-M8 Full Vertical Slice Qualification",
+  "timestamp": "2026-11-04T16:48:22Z",
+  "m0_contract": {
+    "status": "PASS",
+    "qwen_model_type": "qwen3_5_text",
+    "qwen_is_hybrid": true,
+    "qwen_attention_kinds": [
+      "linear_recurrent",
+      "full_attention"
+    ],
+    "llama_is_hybrid": false,
+    "admission_4k_total_bytes": 18688976,
+    "admission_4k_kv_cache_bytes": 791040,
+    "max_context_under_64mb": 256282
+  },
+  "m2_streaming_ingest": {
+    "status": "PASS",
+    "total_tensors": 21,
+    "quantized_tensors": 14,
+    "resumed_tensors": 3,
+    "compression_ratio": 5.37,
+    "peak_single_tensor_bytes": 73728
+  },
+  "m3_certificate": {
+    "status": "PASS",
+    "certificate_passed": true,
+    "mean_kl_divergence": 0.00068,
+    "top1_agreement": 0.7,
+    "top5_agreement": 1.0,
+    "long_context_kl_divergence": 0.00036
+  },
+  "m1_oqpack": {
+    "status": "PASS",
+    "format_version": "oqpack.v1",
+    "shards": 14,
+    "exact_logit_match": true,
+    "verified_tensors": 35
+  },
+  "m4_kv_runtime": {
+    "status": "PASS",
+    "matches_exactly": true,
+    "max_logit_abs_diff": 4.172325134277344e-07,
+    "turn1_prefill_tokens": 2,
+    "turn2_prefill_tokens": 2,
+    "turn3_prefill_tokens": 2,
+    "turn3_kv_bytes": 12672,
+    "kv_bytes_after_reset": 0
+  },
+  "m5_fused_kernels": {
+    "status": "PASS",
+    "fused_modules_in_model": 1,
+    "leech24_fused_abs_diff": 4.76837158203125e-06,
+    "leech24_cached_bytes": 0,
+    "rvq_fused_abs_diff": 1.9073486328125e-06,
+    "rvq_cached_bytes": 0,
+    "full_model_fused_max_diff": 2.980232238769531e-07
+  },
+  "m6_backend_abi": {
+    "status": "PASS",
+    "abi_version": 1,
+    "conformance_passed": true,
+    "conformance_checks": {
+      "abi_header_and_symbols": true,
+      "leech24_matmul_conformance": true,
+      "rvq_matmul_conformance": true,
+      "zero_dense_weight_cache": true,
+      "negative_boundary_error_codes": true
+    },
+    "sidecar_format": "ggml_ojasx_adapter.v1",
+    "sidecar_quantized_tensors": 1,
+    "ggml_matmul_zero_dense_cache": true
+  },
+  "m7_cli_cache": {
+    "status": "PASS",
+    "package_registered": "vslice_qwen",
+    "package_total_bytes": 809877,
+    "cli_verify_exit_code": 0,
+    "cli_doctor_exit_code": 0
+  },
+  "m8_server_and_agent": {
+    "status": "PASS",
+    "server_base_url": "http://127.0.0.1:51033",
+    "sse_chunks_received": 7,
+    "sse_completed_cleanly": true,
+    "sandboxed_tool_success": true,
+    "sandboxed_tool_output": 42,
+    "sandboxed_pid_isolated": true,
+    "agent_prefix_reused": true
+  },
+  "summary": {
+    "status": "PASS",
+    "milestones_passed": [
+      "M0",
+      "M1",
+      "M2",
+      "M3",
+      "M4",
+      "M5",
+      "M6",
+      "M7",
+      "M8"
+    ],
+    "all_passed": true,
+    "elapsed_seconds": 16.83
+  }
+}

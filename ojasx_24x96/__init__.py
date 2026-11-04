@@ -11,6 +11,16 @@ from .adapters import (
     register_custom_module_adapter,
     unregister_custom_module_adapter,
 )
+from .backend_abi import (
+    CLeech24LayerDesc,
+    CRVQLayerDesc,
+    LlamaCppGGMLAdapter,
+    OJASX_BACKEND_ABI_VERSION,
+    OjasxStatus,
+    abi_header_status,
+    build_c_layer_descriptor,
+    run_backend_conformance_suite,
+)
 from .calibration import calibrate_candidates, compute_layer_sensitivity_profile
 from .certificates import (
     LayerSensitivityEntry,
@@ -18,6 +28,7 @@ from .certificates import (
     QualityCertificateThresholds,
     generate_quality_certificate,
 )
+from .cli import OjasXOfflineCache, build_m7_parser, run_cli
 from .contract import (
     CODEC_SCHEMA_VERSION,
     AdmissionError,
@@ -122,11 +133,26 @@ from .planner import (
     plan_quantization,
 )
 from .runtime import set_decode_row_block_size, set_leech_decode_backend
+from .server import OjasXOpenAIServer, ServerAdmissionController, SimpleByteTokenizer
+from .structured_tools import (
+    OjasXToolUsingAgent,
+    SandboxedToolRunner,
+    StructuredOutputError,
+    TokenTrie,
+    TokenTrieLogitProcessor,
+    ToolCall,
+    ToolResult,
+    ToolSpec,
+    generate_structured_json,
+    validate_json_schema,
+)
 
 __all__ = [
     "AdmissionError",
     "ArchitectureProfile",
+    "CLeech24LayerDesc",
     "CODEC_SCHEMA_VERSION",
+    "CRVQLayerDesc",
     "ChatTurn",
     "CheckpointIngestionError",
     "GeneralizedQuantizationResult",
@@ -137,8 +163,10 @@ __all__ = [
     "LayerSensitivityEntry",
     "LeechQuantizationConfig",
     "LeechQuantizedWeight",
+    "LlamaCppGGMLAdapter",
     "MANIFEST_FILENAME",
     "MemoryAdmissionReport",
+    "OJASX_BACKEND_ABI_VERSION",
     "OQPACK_FORMAT_VERSION",
     "OQPackManifest",
     "OQPackShardEntry",
@@ -146,6 +174,10 @@ __all__ = [
     "OQPackValidationError",
     "OjasXInferenceEngine",
     "OjasXKVCacheManager",
+    "OjasXOfflineCache",
+    "OjasXOpenAIServer",
+    "OjasXToolUsingAgent",
+    "OjasxStatus",
     "PlanningConstraints",
     "PlanningError",
     "QualificationContract",
@@ -161,13 +193,25 @@ __all__ = [
     "ResidualVQFusedExperts",
     "ResidualVQLinear",
     "SamplingParams",
+    "SandboxedToolRunner",
+    "ServerAdmissionController",
+    "SimpleByteTokenizer",
     "StreamingConversionReport",
     "StreamingTensorRecord",
+    "StructuredOutputError",
     "TensorLayout",
     "TensorRole",
     "TensorSpec",
+    "TokenTrie",
+    "TokenTrieLogitProcessor",
+    "ToolCall",
+    "ToolResult",
+    "ToolSpec",
+    "abi_header_status",
     "apply_quantization_plan",
     "assert_quality_gates",
+    "build_c_layer_descriptor",
+    "build_m7_parser",
     "calibrate_candidates",
     "compute_layer_sensitivity_profile",
     "cuda_kernel_source_status",
@@ -190,6 +234,7 @@ __all__ = [
     "fused_rvq_gemm_native",
     "generate_candidates",
     "generate_quality_certificate",
+    "generate_structured_json",
     "golay_codewords",
     "introspect_architecture",
     "leech_contains",
@@ -209,6 +254,8 @@ __all__ = [
     "quantize_weight",
     "register_custom_module_adapter",
     "rotate_activation_for_leech",
+    "run_backend_conformance_suite",
+    "run_cli",
     "save_oqpack",
     "set_decode_row_block_size",
     "set_leech_decode_backend",
@@ -217,7 +264,8 @@ __all__ = [
     "unpack_codes",
     "unpack_indices18",
     "unregister_custom_module_adapter",
+    "validate_json_schema",
     "verify_oqpack_integrity",
 ]
 
-__version__ = "0.5.0"
+__version__ = "0.8.0"

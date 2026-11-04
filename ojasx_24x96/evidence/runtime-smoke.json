@@ -1,0 +1,307 @@
+{
+  "benchmark": {
+    "device": "cpu",
+    "profile_output_atol": null,
+    "profile_output_rtol": null,
+    "results": [
+      {
+        "combined_vq_bytes": 25600,
+        "decoded_cache_bytes": 0,
+        "iterations": 5,
+        "max_seconds": 0.002715318000014122,
+        "mean_seconds": 0.002663139600008435,
+        "median_seconds": 0.002675906000035866,
+        "min_seconds": 0.0025391630000513032,
+        "model_state_plus_decoded_cache_bytes": 92032,
+        "model_unique_state_tensor_bytes": 92032,
+        "non_vq_state_tensor_bytes": 66432,
+        "profile": "memory",
+        "vq_layers": 7,
+        "vq_storage_bytes_including_bias": 25600,
+        "warmup": 2
+      },
+      {
+        "combined_vq_bytes": 173056,
+        "decoded_cache_bytes": 147456,
+        "iterations": 5,
+        "max_seconds": 0.0009540309999920282,
+        "mean_seconds": 0.000871187200004897,
+        "median_seconds": 0.0008656020000898934,
+        "min_seconds": 0.000748798000017814,
+        "model_state_plus_decoded_cache_bytes": 239488,
+        "model_unique_state_tensor_bytes": 92032,
+        "non_vq_state_tensor_bytes": 66432,
+        "profile": "speed",
+        "vq_layers": 7,
+        "vq_storage_bytes_including_bias": 25600,
+        "warmup": 2
+      }
+    ],
+    "schema_version": 1,
+    "scope": "Measured forward latency on one input and host; not a universal speedup, generation-throughput, or memory allocator guarantee",
+    "torch_version": "2.15.0+cu132"
+  },
+  "codec": {
+    "bits_per_stage": 4,
+    "block_size": 8,
+    "chunk_size": 257,
+    "codec": "ojasx_adaptive_residual_vq",
+    "kmeans_iterations": 4,
+    "max_codebook_samples": 256,
+    "max_relative_error": null,
+    "max_stages": 4,
+    "min_weight_elements": 1,
+    "require_compression": false,
+    "seed": 71
+  },
+  "dense_storage": {
+    "combined_vq_bytes": 0,
+    "decoded_cache_bytes": 0,
+    "model_state_plus_decoded_cache_bytes": 213888,
+    "model_unique_state_tensor_bytes": 213888,
+    "non_vq_state_tensor_bytes": 213888,
+    "vq_layers": 0,
+    "vq_storage_bytes_including_bias": 0
+  },
+  "environment": {
+    "cuda_available": false,
+    "device": "cpu",
+    "platform": "Linux-6.1.158+-x86_64-with-glibc2.36",
+    "python": "3.11.2",
+    "torch": "2.15.0+cu132",
+    "torch_threads": 1,
+    "transformers": "5.22.1"
+  },
+  "generated_at": "2026-11-04T10:38:27.301546+00:00",
+  "model": {
+    "architecture": "Qwen3ForCausalLM",
+    "config": {
+      "_name_or_path": "",
+      "architectures": null,
+      "attention_bias": false,
+      "attention_dropout": 0.0,
+      "bos_token_id": null,
+      "chunk_size_feed_forward": 0,
+      "dtype": null,
+      "eos_token_id": null,
+      "head_dim": 16,
+      "hidden_act": "silu",
+      "hidden_size": 64,
+      "id2label": {
+        "0": "LABEL_0",
+        "1": "LABEL_1"
+      },
+      "initializer_range": 0.02,
+      "intermediate_size": 128,
+      "is_encoder_decoder": false,
+      "label2id": {
+        "LABEL_0": 0,
+        "LABEL_1": 1
+      },
+      "layer_types": [
+        "full_attention"
+      ],
+      "max_position_embeddings": 64,
+      "max_window_layers": 28,
+      "model_type": "qwen3",
+      "num_attention_heads": 4,
+      "num_hidden_layers": 1,
+      "num_key_value_heads": 2,
+      "output_attentions": false,
+      "output_hidden_states": false,
+      "pad_token_id": null,
+      "problem_type": null,
+      "return_dict": true,
+      "rms_norm_eps": 1e-06,
+      "rope_parameters": {
+        "rope_theta": 10000.0,
+        "rope_type": "default"
+      },
+      "sliding_window": null,
+      "tie_word_embeddings": true,
+      "transformers_version": "5.22.1",
+      "use_cache": true,
+      "use_sliding_window": false,
+      "vocab_size": 256
+    },
+    "input_ids": [
+      [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    ],
+    "source": "locally initialized tiny random weights; no external checkpoint"
+  },
+  "quality": {
+    "candidate_mean_nll": 5.429679870605469,
+    "candidate_perplexity": 228.07621983364632,
+    "max_absolute_logit_error": 0.2742188274860382,
+    "mean_kl_reference_candidate": 0.0015515618724748492,
+    "mean_nll_delta": -0.013725757598876953,
+    "reference_mean_nll": 5.443405628204346,
+    "reference_perplexity": 231.22832174764565,
+    "relative_logits_l2_error": 0.3323080837726593,
+    "supervised_tokens": 7,
+    "top1_agreement": 1.0
+  },
+  "quantization": {
+    "codec": "ojasx_adaptive_residual_vq",
+    "configuration": {
+      "bits_per_stage": 4,
+      "block_size": 8,
+      "chunk_size": 257,
+      "codec": "ojasx_adaptive_residual_vq",
+      "kmeans_iterations": 4,
+      "max_codebook_samples": 256,
+      "max_relative_error": null,
+      "max_stages": 4,
+      "min_weight_elements": 1,
+      "require_compression": false,
+      "seed": 71
+    },
+    "eligible_layers": 7,
+    "exclude_globs": [
+      "lm_head",
+      "*.lm_head"
+    ],
+    "include_globs": [
+      "*"
+    ],
+    "layers": [
+      {
+        "measured_bits_per_weight": 6.5,
+        "module_type": "linear",
+        "name": "model.layers.0.self_attn.q_proj",
+        "nominal_bits_per_weight": 2.0,
+        "original_bytes": 16384,
+        "reason": "admitted",
+        "relative_error": 0.36990374584965485,
+        "selected": true,
+        "selected_stages": 4,
+        "shape": [
+          64,
+          64
+        ],
+        "storage_bytes": 3328
+      },
+      {
+        "measured_bits_per_weight": 10.5,
+        "module_type": "linear",
+        "name": "model.layers.0.self_attn.k_proj",
+        "nominal_bits_per_weight": 2.0,
+        "original_bytes": 8192,
+        "reason": "admitted",
+        "relative_error": 0.2994329733600478,
+        "selected": true,
+        "selected_stages": 4,
+        "shape": [
+          32,
+          64
+        ],
+        "storage_bytes": 2688
+      },
+      {
+        "measured_bits_per_weight": 10.5,
+        "module_type": "linear",
+        "name": "model.layers.0.self_attn.v_proj",
+        "nominal_bits_per_weight": 2.0,
+        "original_bytes": 8192,
+        "reason": "admitted",
+        "relative_error": 0.2835121821902539,
+        "selected": true,
+        "selected_stages": 4,
+        "shape": [
+          32,
+          64
+        ],
+        "storage_bytes": 2688
+      },
+      {
+        "measured_bits_per_weight": 6.5,
+        "module_type": "linear",
+        "name": "model.layers.0.self_attn.o_proj",
+        "nominal_bits_per_weight": 2.0,
+        "original_bytes": 16384,
+        "reason": "admitted",
+        "relative_error": 0.36609780147576804,
+        "selected": true,
+        "selected_stages": 4,
+        "shape": [
+          64,
+          64
+        ],
+        "storage_bytes": 3328
+      },
+      {
+        "measured_bits_per_weight": 4.5,
+        "module_type": "linear",
+        "name": "model.layers.0.mlp.gate_proj",
+        "nominal_bits_per_weight": 2.0,
+        "original_bytes": 32768,
+        "reason": "admitted",
+        "relative_error": 0.3871692596741604,
+        "selected": true,
+        "selected_stages": 4,
+        "shape": [
+          128,
+          64
+        ],
+        "storage_bytes": 4608
+      },
+      {
+        "measured_bits_per_weight": 4.5,
+        "module_type": "linear",
+        "name": "model.layers.0.mlp.up_proj",
+        "nominal_bits_per_weight": 2.0,
+        "original_bytes": 32768,
+        "reason": "admitted",
+        "relative_error": 0.3863567071730708,
+        "selected": true,
+        "selected_stages": 4,
+        "shape": [
+          128,
+          64
+        ],
+        "storage_bytes": 4608
+      },
+      {
+        "measured_bits_per_weight": 4.25,
+        "module_type": "linear",
+        "name": "model.layers.0.mlp.down_proj",
+        "nominal_bits_per_weight": 2.0,
+        "original_bytes": 32768,
+        "reason": "admitted",
+        "relative_error": 0.3816866567524409,
+        "selected": true,
+        "selected_stages": 4,
+        "shape": [
+          64,
+          128
+        ],
+        "storage_bytes": 4352
+      }
+    ],
+    "module_types": {
+      "linear": {
+        "eligible": 7,
+        "selected": 7
+      }
+    },
+    "preserve_shared_weights": true,
+    "schema_version": 1,
+    "scope": "Per-tensor weight measurements only; excludes tokenizer, KV cache, activations, runtime overhead, and model-quality guarantees",
+    "selected_layers": 7,
+    "selected_original_weight_bytes": 147456,
+    "selected_stored_weight_bytes": 25600,
+    "selected_weight_compression_ratio": 5.76
+  },
+  "schema_version": 1,
+  "scope": "One tiny random Qwen3 model, one CPU input, and one environment. Tensor bytes are not RSS/allocator measurements; forward latency is not generation throughput; random-model metrics are not real-model accuracy, multilingual quality, or production certification.",
+  "status": "passed"
+}

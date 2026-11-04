@@ -1,0 +1,53 @@
+         149722 function calls (149398 primitive calls) in 0.337 seconds
+
+   Ordered by: cumulative time
+   List reduced from 106 to 45 due to restriction <45>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    165/3    0.000    0.000    0.337    0.112 module.py:1783(_wrapped_call_impl)
+    165/3    0.001    0.000    0.337    0.112 module.py:1791(_call_impl)
+        3    0.000    0.000    0.337    0.112 leech24_qualify.py:178(forward)
+       15    0.001    0.000    0.335    0.022 leech24_qualify.py:158(forward)
+        6    0.002    0.000    0.291    0.048 module.py:415(forward)
+       96    0.000    0.000    0.279    0.003 module.py:334(dequantize_weight_rows)
+       96    0.002    0.000    0.264    0.003 leech_codec.py:575(dequantize_leech_weight_rows)
+       96    0.009    0.000    0.262    0.003 leech_codec.py:546(_decode_rotated_vectors)
+       15    0.000    0.000    0.234    0.016 leech24_qualify.py:121(forward)
+      288    0.004    0.000    0.140    0.000 leech24.py:268(decode_unit_vectors)
+      288    0.077    0.000    0.134    0.000 leech24.py:205(decode_indices)
+       15    0.000    0.000    0.098    0.007 leech24_qualify.py:146(forward)
+      288    0.004    0.000    0.057    0.000 leech_codec.py:224(indices_range)
+      168    0.040    0.000    0.040    0.000 {built-in method torch._C._nn.linear}
+      288    0.003    0.000    0.040    0.000 leech_codec.py:250(gain_codes_range)
+      384    0.005    0.000    0.035    0.000 leech_codec.py:303(_presence_count_before)
+       72    0.000    0.000    0.031    0.000 linear.py:130(forward)
+      288    0.021    0.000    0.027    0.000 leech24.py:409(unpack_indices18_range)
+     6648    0.025    0.000    0.025    0.000 {built-in method torch.tensor}
+      864    0.015    0.000    0.024    0.000 codec.py:198(unpack_codes)
+      360    0.014    0.000    0.020    0.000 leech_codec.py:307(<listcomp>)
+      576    0.003    0.000    0.019    0.000 leech_codec.py:292(_presence_range)
+       96    0.001    0.000    0.015    0.000 module.py:278(encoded)
+     2172    0.003    0.000    0.013    0.000 _tensor.py:32(wrapped)
+     3972    0.013    0.000    0.013    0.000 {method 'to' of 'torch._C.TensorBase' objects}
+       96    0.000    0.000    0.011    0.000 <string>:2(__init__)
+       96    0.004    0.000    0.011    0.000 leech_codec.py:117(__post_init__)
+      288    0.002    0.000    0.011    0.000 leech_codec.py:275(_narrow_codes_range)
+     3144    0.009    0.000    0.009    0.000 {built-in method torch.where}
+       96    0.004    0.000    0.008    0.000 leech24.py:467(apply_rotation)
+     1224    0.007    0.000    0.007    0.000 {method 'sum' of 'torch._C.TensorBase' objects}
+     1728    0.006    0.000    0.006    0.000 {built-in method torch.arange}
+    92160    0.006    0.000    0.006    0.000 {method 'bit_count' of 'int' objects}
+     1692    0.001    0.000    0.006    0.000 _tensor.py:1161(__floordiv__)
+     1692    0.005    0.000    0.005    0.000 {built-in method torch.floor_divide}
+       30    0.003    0.000    0.004    0.000 leech24_qualify.py:104(apply_rope)
+       15    0.004    0.000    0.004    0.000 {built-in method torch._C._nn.scaled_dot_product_attention}
+     1056    0.003    0.000    0.003    0.000 {built-in method torch.zeros}
+      192    0.003    0.000    0.003    0.000 {built-in method torch.isfinite}
+     2412    0.003    0.000    0.003    0.000 {method 'reshape' of 'torch._C.TensorBase' objects}
+     1248    0.003    0.000    0.003    0.000 {method 'bool' of 'torch._C.TensorBase' objects}
+       33    0.001    0.000    0.003    0.000 leech24_qualify.py:93(forward)
+      864    0.002    0.000    0.002    0.000 {method 'any' of 'torch._C.TensorBase' objects}
+      840    0.002    0.000    0.002    0.000 {method 'remainder' of 'torch._C.TensorBase' objects}
+      288    0.000    0.000    0.002    0.000 _tensor.py:1118(__rsub__)
+
+

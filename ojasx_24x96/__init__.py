@@ -1,0 +1,223 @@
+"""OJASX Vector Quantization Runner.
+
+Standalone adaptive multi-stage residual vector quantization for inference.
+This package deliberately does not import or modify :mod:`ojasx2`.
+"""
+
+from .adapters import (
+    apply_quantization_plan,
+    discover_tensor_specs,
+    list_registered_custom_adapters,
+    register_custom_module_adapter,
+    unregister_custom_module_adapter,
+)
+from .calibration import calibrate_candidates, compute_layer_sensitivity_profile
+from .certificates import (
+    LayerSensitivityEntry,
+    QualityCertificate,
+    QualityCertificateThresholds,
+    generate_quality_certificate,
+)
+from .contract import (
+    CODEC_SCHEMA_VERSION,
+    AdmissionError,
+    ArchitectureProfile,
+    LayerKVSpec,
+    MemoryAdmissionReport,
+    QualificationContract,
+    evaluate_memory_admission,
+    introspect_architecture,
+    max_admissible_context_length,
+)
+from .codec import (
+    QuantizationConfig,
+    QuantizedWeight,
+    dequantize_weight,
+    dequantize_weight_rows,
+    pack_codes,
+    quantize_weight,
+    unpack_codes,
+)
+from .engine import (
+    ChatTurn,
+    GenerationResult,
+    KVCacheParityReport,
+    OjasXInferenceEngine,
+    SamplingParams,
+)
+from .gates import (
+    QualityGateResult,
+    QualityGateThresholds,
+    assert_quality_gates,
+    evaluate_quality_gates,
+)
+from .generalized import GeneralizedQuantizationResult, quantize_model_generalized
+from .ingest import (
+    CheckpointIngestionError,
+    StreamingConversionReport,
+    StreamingTensorRecord,
+    discover_checkpoint_safetensors,
+    load_streamed_checkpoint_into_model,
+    should_quantize_tensor_name,
+    stream_convert_checkpoint,
+)
+from .ir import (
+    QuantizationCandidate,
+    QuantizationPlan,
+    TensorLayout,
+    TensorRole,
+    TensorSpec,
+)
+from .kv_cache import KVCacheStats, OjasXKVCacheManager
+from .leech24 import (
+    decode_indices as decode_leech_indices,
+    decode_unit_vectors as decode_leech_unit_vectors,
+    golay_codewords,
+    leech_contains,
+    nearest_shell2,
+    pack_indices18,
+    unpack_indices18,
+)
+from .leech_codec import (
+    LeechQuantizationConfig,
+    LeechQuantizedWeight,
+    dequantize_leech_weight,
+    dequantize_leech_weight_rows,
+    dequantize_leech_weight_rows_unrotated,
+    quantize_leech_weight,
+    rotate_activation_for_leech,
+)
+from .leech_native import (
+    cuda_kernel_source_status,
+    decode_leech_indices_native,
+    decode_leech_rows_unrotated_native,
+    fused_leech_gemm_native,
+    fused_rvq_gemm_native,
+    native_backend_status as native_leech_backend_status,
+)
+from .module import (
+    ResidualVQConv1D,
+    ResidualVQFusedExperts,
+    ResidualVQLinear,
+    quantize_model,
+)
+from .oqpack import (
+    MANIFEST_FILENAME,
+    OQPACK_FORMAT_VERSION,
+    OQPackManifest,
+    OQPackShardEntry,
+    OQPackTensorRecord,
+    OQPackValidationError,
+    load_quantized_model_from_oqpack,
+    open_oqpack_mmap,
+    save_oqpack,
+    verify_oqpack_integrity,
+)
+from .planner import (
+    PlanningConstraints,
+    PlanningError,
+    default_candidate_configs,
+    default_leech_candidate_configs,
+    generate_candidates,
+    plan_quantization,
+)
+from .runtime import set_decode_row_block_size, set_leech_decode_backend
+
+__all__ = [
+    "AdmissionError",
+    "ArchitectureProfile",
+    "CODEC_SCHEMA_VERSION",
+    "ChatTurn",
+    "CheckpointIngestionError",
+    "GeneralizedQuantizationResult",
+    "GenerationResult",
+    "KVCacheParityReport",
+    "KVCacheStats",
+    "LayerKVSpec",
+    "LayerSensitivityEntry",
+    "LeechQuantizationConfig",
+    "LeechQuantizedWeight",
+    "MANIFEST_FILENAME",
+    "MemoryAdmissionReport",
+    "OQPACK_FORMAT_VERSION",
+    "OQPackManifest",
+    "OQPackShardEntry",
+    "OQPackTensorRecord",
+    "OQPackValidationError",
+    "OjasXInferenceEngine",
+    "OjasXKVCacheManager",
+    "PlanningConstraints",
+    "PlanningError",
+    "QualificationContract",
+    "QualityCertificate",
+    "QualityCertificateThresholds",
+    "QualityGateResult",
+    "QualityGateThresholds",
+    "QuantizationCandidate",
+    "QuantizationConfig",
+    "QuantizationPlan",
+    "QuantizedWeight",
+    "ResidualVQConv1D",
+    "ResidualVQFusedExperts",
+    "ResidualVQLinear",
+    "SamplingParams",
+    "StreamingConversionReport",
+    "StreamingTensorRecord",
+    "TensorLayout",
+    "TensorRole",
+    "TensorSpec",
+    "apply_quantization_plan",
+    "assert_quality_gates",
+    "calibrate_candidates",
+    "compute_layer_sensitivity_profile",
+    "cuda_kernel_source_status",
+    "default_candidate_configs",
+    "default_leech_candidate_configs",
+    "decode_leech_indices",
+    "decode_leech_indices_native",
+    "decode_leech_rows_unrotated_native",
+    "decode_leech_unit_vectors",
+    "dequantize_leech_weight",
+    "dequantize_leech_weight_rows",
+    "dequantize_leech_weight_rows_unrotated",
+    "dequantize_weight",
+    "dequantize_weight_rows",
+    "discover_checkpoint_safetensors",
+    "discover_tensor_specs",
+    "evaluate_memory_admission",
+    "evaluate_quality_gates",
+    "fused_leech_gemm_native",
+    "fused_rvq_gemm_native",
+    "generate_candidates",
+    "generate_quality_certificate",
+    "golay_codewords",
+    "introspect_architecture",
+    "leech_contains",
+    "list_registered_custom_adapters",
+    "load_quantized_model_from_oqpack",
+    "load_streamed_checkpoint_into_model",
+    "max_admissible_context_length",
+    "native_leech_backend_status",
+    "nearest_shell2",
+    "open_oqpack_mmap",
+    "pack_codes",
+    "pack_indices18",
+    "plan_quantization",
+    "quantize_leech_weight",
+    "quantize_model",
+    "quantize_model_generalized",
+    "quantize_weight",
+    "register_custom_module_adapter",
+    "rotate_activation_for_leech",
+    "save_oqpack",
+    "set_decode_row_block_size",
+    "set_leech_decode_backend",
+    "should_quantize_tensor_name",
+    "stream_convert_checkpoint",
+    "unpack_codes",
+    "unpack_indices18",
+    "unregister_custom_module_adapter",
+    "verify_oqpack_integrity",
+]
+
+__version__ = "0.5.0"

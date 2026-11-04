@@ -1,0 +1,688 @@
+{
+  "benchmark": {
+    "device": "cpu",
+    "profile_output_atol": null,
+    "profile_output_rtol": null,
+    "results": [
+      {
+        "combined_vq_bytes": 2816,
+        "decoded_cache_bytes": 0,
+        "iterations": 3,
+        "max_seconds": 0.0006474580000030983,
+        "mean_seconds": 0.0006313280000161589,
+        "median_seconds": 0.0006293750000168075,
+        "min_seconds": 0.0006171510000285707,
+        "model_state_plus_decoded_cache_bytes": 11264,
+        "model_unique_state_tensor_bytes": 11264,
+        "non_vq_state_tensor_bytes": 8448,
+        "profile": "memory",
+        "vq_layers": 1,
+        "vq_storage_bytes_including_bias": 2816,
+        "warmup": 1
+      },
+      {
+        "combined_vq_bytes": 11008,
+        "decoded_cache_bytes": 8192,
+        "iterations": 3,
+        "max_seconds": 3.358800006481033e-05,
+        "mean_seconds": 2.9881666705477983e-05,
+        "median_seconds": 2.8912000061609433e-05,
+        "min_seconds": 2.7144999990014185e-05,
+        "model_state_plus_decoded_cache_bytes": 19456,
+        "model_unique_state_tensor_bytes": 11264,
+        "non_vq_state_tensor_bytes": 8448,
+        "profile": "speed",
+        "vq_layers": 1,
+        "vq_storage_bytes_including_bias": 2816,
+        "warmup": 1
+      }
+    ],
+    "schema_version": 1,
+    "scope": "Measured forward latency on one input and host; not a universal speedup, generation-throughput, or memory allocator guarantee",
+    "torch_version": "2.15.0+cu132"
+  },
+  "dense_storage": {
+    "combined_vq_bytes": 0,
+    "decoded_cache_bytes": 0,
+    "model_state_plus_decoded_cache_bytes": 16768,
+    "model_unique_state_tensor_bytes": 16768,
+    "non_vq_state_tensor_bytes": 16768,
+    "vq_layers": 0,
+    "vq_storage_bytes_including_bias": 0
+  },
+  "environment": {
+    "cuda_available": false,
+    "platform": "Linux-6.1.158+-x86_64-with-glibc2.36",
+    "python": "3.11.2",
+    "torch": "2.15.0+cu132"
+  },
+  "generalized": {
+    "calibration": {
+      "batches": 2,
+      "capture_errors": {},
+      "captured_invocations": 4,
+      "captured_modules": 2,
+      "max_activation_rows": 128,
+      "scope": "Bounded local-output measurements on supplied inputs only; fused projections are isolated and cross-layer/final-task effects are not bounded",
+      "uncalibrated_tensors": []
+    },
+    "end_to_end_quality": {
+      "failures": [],
+      "metrics": {
+        "batches": 2,
+        "finite_candidate_logits": true,
+        "maximum_absolute_logits_error": 0.025904297828674316,
+        "mean_kl": 3.3954609534703195e-05,
+        "per_batch": [
+          {
+            "batch": 0,
+            "maximum_absolute_logits_error": 0.025904297828674316,
+            "mean_kl": 4.370183160062879e-05,
+            "positions": 4,
+            "relative_logits_l2_error": 0.04054511331424282,
+            "top1_agreement": 0.75
+          },
+          {
+            "batch": 1,
+            "maximum_absolute_logits_error": 0.022826209664344788,
+            "mean_kl": 2.4207387468777597e-05,
+            "positions": 4,
+            "relative_logits_l2_error": 0.02703532274111293,
+            "top1_agreement": 1.0
+          }
+        ],
+        "positions": 8,
+        "relative_logits_l2_error": 0.03353548437362501,
+        "scope": "End-to-end gates only for supplied inputs and optional position sampling; passing is not a universal accuracy or downstream-task guarantee",
+        "supervised_tokens": 0,
+        "top1_agreement": 0.875
+      },
+      "passed": true,
+      "thresholds": {
+        "max_absolute_logits_error": null,
+        "max_mean_kl": 0.001,
+        "max_mean_nll_delta": null,
+        "max_relative_logits_l2_error": 0.05,
+        "min_top1_agreement": 0.75
+      }
+    },
+    "plan": {
+      "alternatives": {
+        "0": [
+          {
+            "bits_per_stage": null,
+            "block_size": null,
+            "calibrated": true,
+            "calibration_invocations": 2,
+            "calibration_values": 256,
+            "candidate_id": "dense",
+            "codec": "dense",
+            "config": null,
+            "decoded_weight_bytes_estimate": 0,
+            "encoded_weight_bytes": 8192,
+            "estimated_error_for_planning": 0.0,
+            "fixed_bytes": 128,
+            "local_output_max_absolute_error": 0.0,
+            "local_output_relative_error": 0.0,
+            "measured_bits_per_weight": 32.0,
+            "original_weight_bytes": 8192,
+            "payload_resident": false,
+            "stages": 0,
+            "tensor_name": "0",
+            "weight_elements": 2048,
+            "weight_relative_error": 0.0,
+            "weight_savings_bytes": 0
+          },
+          {
+            "bits_per_stage": 4,
+            "block_size": 2,
+            "calibrated": true,
+            "calibration_invocations": 2,
+            "calibration_values": 256,
+            "candidate_id": "rvq-0-b2-k4-s4",
+            "codec": "adaptive_residual_vq",
+            "config": {
+              "bits_per_stage": 4,
+              "block_size": 2,
+              "chunk_size": 31,
+              "codec": "ojasx_adaptive_residual_vq",
+              "kmeans_iterations": 4,
+              "max_codebook_samples": 64,
+              "max_relative_error": null,
+              "max_stages": 4,
+              "min_weight_elements": 1,
+              "require_compression": false,
+              "seed": 71
+            },
+            "decoded_weight_bytes_estimate": 8192,
+            "encoded_weight_bytes": 2688,
+            "estimated_error_for_planning": 0.03793644396426519,
+            "fixed_bytes": 128,
+            "local_output_max_absolute_error": 0.09805679321289062,
+            "local_output_relative_error": 0.03793644396426519,
+            "measured_bits_per_weight": 10.5,
+            "original_weight_bytes": 8192,
+            "payload_resident": true,
+            "stages": 4,
+            "tensor_name": "0",
+            "weight_elements": 2048,
+            "weight_relative_error": 0.0405491639707119,
+            "weight_savings_bytes": 5504
+          },
+          {
+            "bits_per_stage": 4,
+            "block_size": 4,
+            "calibrated": true,
+            "calibration_invocations": 2,
+            "calibration_values": 256,
+            "candidate_id": "rvq-1-b4-k4-s4",
+            "codec": "adaptive_residual_vq",
+            "config": {
+              "bits_per_stage": 4,
+              "block_size": 4,
+              "chunk_size": 31,
+              "codec": "ojasx_adaptive_residual_vq",
+              "kmeans_iterations": 4,
+              "max_codebook_samples": 64,
+              "max_relative_error": null,
+              "max_stages": 4,
+              "min_weight_elements": 1,
+              "require_compression": false,
+              "seed": 71
+            },
+            "decoded_weight_bytes_estimate": 8192,
+            "encoded_weight_bytes": 2176,
+            "estimated_error_for_planning": 0.16082802672369295,
+            "fixed_bytes": 128,
+            "local_output_max_absolute_error": 0.42964866012334824,
+            "local_output_relative_error": 0.16082802672369295,
+            "measured_bits_per_weight": 8.5,
+            "original_weight_bytes": 8192,
+            "payload_resident": false,
+            "stages": 4,
+            "tensor_name": "0",
+            "weight_elements": 2048,
+            "weight_relative_error": 0.18207975275628951,
+            "weight_savings_bytes": 6016
+          },
+          {
+            "bits_per_stage": 4,
+            "block_size": 8,
+            "calibrated": true,
+            "calibration_invocations": 2,
+            "calibration_values": 256,
+            "candidate_id": "rvq-2-b8-k4-s4",
+            "codec": "adaptive_residual_vq",
+            "config": {
+              "bits_per_stage": 4,
+              "block_size": 8,
+              "chunk_size": 31,
+              "codec": "ojasx_adaptive_residual_vq",
+              "kmeans_iterations": 4,
+              "max_codebook_samples": 64,
+              "max_relative_error": null,
+              "max_stages": 4,
+              "min_weight_elements": 1,
+              "require_compression": false,
+              "seed": 71
+            },
+            "decoded_weight_bytes_estimate": 8192,
+            "encoded_weight_bytes": 2688,
+            "estimated_error_for_planning": 0.39295650517775865,
+            "fixed_bytes": 128,
+            "local_output_max_absolute_error": 0.6442450135946274,
+            "local_output_relative_error": 0.39295650517775865,
+            "measured_bits_per_weight": 10.5,
+            "original_weight_bytes": 8192,
+            "payload_resident": false,
+            "stages": 4,
+            "tensor_name": "0",
+            "weight_elements": 2048,
+            "weight_relative_error": 0.427266329149097,
+            "weight_savings_bytes": 5504
+          }
+        ],
+        "2": [
+          {
+            "bits_per_stage": null,
+            "block_size": null,
+            "calibrated": true,
+            "calibration_invocations": 2,
+            "calibration_values": 512,
+            "candidate_id": "dense",
+            "codec": "dense",
+            "config": null,
+            "decoded_weight_bytes_estimate": 0,
+            "encoded_weight_bytes": 8192,
+            "estimated_error_for_planning": 0.0,
+            "fixed_bytes": 256,
+            "local_output_max_absolute_error": 0.0,
+            "local_output_relative_error": 0.0,
+            "measured_bits_per_weight": 32.0,
+            "original_weight_bytes": 8192,
+            "payload_resident": false,
+            "stages": 0,
+            "tensor_name": "2",
+            "weight_elements": 2048,
+            "weight_relative_error": 0.0,
+            "weight_savings_bytes": 0
+          },
+          {
+            "bits_per_stage": 4,
+            "block_size": 2,
+            "calibrated": true,
+            "calibration_invocations": 2,
+            "calibration_values": 512,
+            "candidate_id": "rvq-0-b2-k4-s4",
+            "codec": "adaptive_residual_vq",
+            "config": {
+              "bits_per_stage": 4,
+              "block_size": 2,
+              "chunk_size": 31,
+              "codec": "ojasx_adaptive_residual_vq",
+              "kmeans_iterations": 4,
+              "max_codebook_samples": 64,
+              "max_relative_error": null,
+              "max_stages": 4,
+              "min_weight_elements": 1,
+              "require_compression": false,
+              "seed": 71
+            },
+            "decoded_weight_bytes_estimate": 8192,
+            "encoded_weight_bytes": 2816,
+            "estimated_error_for_planning": 0.0479727230564567,
+            "fixed_bytes": 256,
+            "local_output_max_absolute_error": 0.06115320324897766,
+            "local_output_relative_error": 0.0479727230564567,
+            "measured_bits_per_weight": 11.0,
+            "original_weight_bytes": 8192,
+            "payload_resident": false,
+            "stages": 4,
+            "tensor_name": "2",
+            "weight_elements": 2048,
+            "weight_relative_error": 0.05675300503388634,
+            "weight_savings_bytes": 5376
+          },
+          {
+            "bits_per_stage": 4,
+            "block_size": 4,
+            "calibrated": true,
+            "calibration_invocations": 2,
+            "calibration_values": 512,
+            "candidate_id": "rvq-1-b4-k4-s4",
+            "codec": "adaptive_residual_vq",
+            "config": {
+              "bits_per_stage": 4,
+              "block_size": 4,
+              "chunk_size": 31,
+              "codec": "ojasx_adaptive_residual_vq",
+              "kmeans_iterations": 4,
+              "max_codebook_samples": 64,
+              "max_relative_error": null,
+              "max_stages": 4,
+              "min_weight_elements": 1,
+              "require_compression": false,
+              "seed": 71
+            },
+            "decoded_weight_bytes_estimate": 8192,
+            "encoded_weight_bytes": 2304,
+            "estimated_error_for_planning": 0.1444009920312542,
+            "fixed_bytes": 256,
+            "local_output_max_absolute_error": 0.1485118418931961,
+            "local_output_relative_error": 0.1444009920312542,
+            "measured_bits_per_weight": 9.0,
+            "original_weight_bytes": 8192,
+            "payload_resident": false,
+            "stages": 4,
+            "tensor_name": "2",
+            "weight_elements": 2048,
+            "weight_relative_error": 0.1623385915813953,
+            "weight_savings_bytes": 5888
+          },
+          {
+            "bits_per_stage": 4,
+            "block_size": 8,
+            "calibrated": true,
+            "calibration_invocations": 2,
+            "calibration_values": 512,
+            "candidate_id": "rvq-2-b8-k4-s4",
+            "codec": "adaptive_residual_vq",
+            "config": {
+              "bits_per_stage": 4,
+              "block_size": 8,
+              "chunk_size": 31,
+              "codec": "ojasx_adaptive_residual_vq",
+              "kmeans_iterations": 4,
+              "max_codebook_samples": 64,
+              "max_relative_error": null,
+              "max_stages": 4,
+              "min_weight_elements": 1,
+              "require_compression": false,
+              "seed": 71
+            },
+            "decoded_weight_bytes_estimate": 8192,
+            "encoded_weight_bytes": 2816,
+            "estimated_error_for_planning": 0.3844362554099207,
+            "fixed_bytes": 256,
+            "local_output_max_absolute_error": 0.34856459498405457,
+            "local_output_relative_error": 0.3844362554099207,
+            "measured_bits_per_weight": 11.0,
+            "original_weight_bytes": 8192,
+            "payload_resident": false,
+            "stages": 4,
+            "tensor_name": "2",
+            "weight_elements": 2048,
+            "weight_relative_error": 0.41322618115471954,
+            "weight_savings_bytes": 5376
+          }
+        ]
+      },
+      "base_model_state_bytes": 16768,
+      "constraints": {
+        "allow_weight_only": false,
+        "decode_row_block_size": 7,
+        "derived_max_model_state_bytes": 13414,
+        "max_decode_group_bytes": null,
+        "max_frontier_states": 2048,
+        "max_model_state_bytes": null,
+        "max_state_plus_cache_bytes": null,
+        "max_tensor_estimated_error": 10.0,
+        "max_tensor_weight_error": null,
+        "max_total_estimated_squared_error": null,
+        "runtime_profile": "memory",
+        "target_state_ratio": 0.8
+      },
+      "coverage": {
+        "by_layout": {
+          "linear": {
+            "original_weight_bytes": 16384,
+            "quantized_tensors": 1,
+            "selected_weight_bytes": 10880,
+            "tensors": 2
+          }
+        },
+        "by_role": {
+          "other": {
+            "original_weight_bytes": 16384,
+            "quantized_tensors": 1,
+            "selected_weight_bytes": 10880,
+            "tensors": 2
+          }
+        }
+      },
+      "format": "ojasx-generalized-vq-plan",
+      "generation_failures": {},
+      "memory": {
+        "actual_matches_prediction": true,
+        "actual_model_state_bytes_after_apply": 11264,
+        "dense_model_unique_state_bytes": 16768,
+        "max_decode_group_output_bytes_estimate": 1792,
+        "predicted_full_decoded_cache_bytes": 0,
+        "predicted_model_state_bytes": 11264,
+        "predicted_model_state_plus_cache_bytes": 11264,
+        "predicted_state_ratio": 0.6717557251908397,
+        "predicted_weight_savings_bytes": 5504,
+        "runtime_profile": "memory",
+        "scope": "Persistent bytes are tensor-inventory accounting, not RSS. Cache assumes every selected VQ projection is populated. Memory mode estimates one streaming row block or active-expert decode group; speed mode estimates full decoded banks. Values use source-dtype bytes and exclude padded float32 intermediates, activations, and KV cache."
+      },
+      "optimizer": {
+        "algorithm": "multiple_choice_pareto_frontier",
+        "candidate_optimality": "exact_over_generated_candidates",
+        "decode_groups": 2,
+        "frontier_truncated": false,
+        "objective": "minimum_sum_squared_local_error_then_maximum_weight_savings",
+        "peak_frontier_states": 7
+      },
+      "quality": {
+        "calibrated_quantized_tensors": 1,
+        "calibration": {
+          "batches": 2,
+          "capture_errors": {},
+          "captured_invocations": 4,
+          "captured_modules": 2,
+          "max_activation_rows": 128,
+          "scope": "Bounded local-output measurements on supplied inputs only; fused projections are isolated and cross-layer/final-task effects are not bounded",
+          "uncalibrated_tensors": []
+        },
+        "end_to_end_gates": {
+          "failures": [],
+          "metrics": {
+            "batches": 2,
+            "finite_candidate_logits": true,
+            "maximum_absolute_logits_error": 0.025904297828674316,
+            "mean_kl": 3.3954609534703195e-05,
+            "per_batch": [
+              {
+                "batch": 0,
+                "maximum_absolute_logits_error": 0.025904297828674316,
+                "mean_kl": 4.370183160062879e-05,
+                "positions": 4,
+                "relative_logits_l2_error": 0.04054511331424282,
+                "top1_agreement": 0.75
+              },
+              {
+                "batch": 1,
+                "maximum_absolute_logits_error": 0.022826209664344788,
+                "mean_kl": 2.4207387468777597e-05,
+                "positions": 4,
+                "relative_logits_l2_error": 0.02703532274111293,
+                "top1_agreement": 1.0
+              }
+            ],
+            "positions": 8,
+            "relative_logits_l2_error": 0.03353548437362501,
+            "scope": "End-to-end gates only for supplied inputs and optional position sampling; passing is not a universal accuracy or downstream-task guarantee",
+            "supervised_tokens": 0,
+            "top1_agreement": 0.875
+          },
+          "passed": true,
+          "thresholds": {
+            "max_absolute_logits_error": null,
+            "max_mean_kl": 0.001,
+            "max_mean_nll_delta": null,
+            "max_relative_logits_l2_error": 0.05,
+            "min_top1_agreement": 0.75
+          }
+        },
+        "estimated_rms_local_error_over_quantized_tensors": 0.03793644396426519,
+        "estimated_squared_local_error": 0.0014391737806538326,
+        "max_selected_tensor_estimated_error": 0.03793644396426519,
+        "quantized_tensors": 1,
+        "scope": "Additive squared local errors guide selection only. They are not an end-to-end NLL, KL, task-accuracy, or cross-layer interaction bound.",
+        "weight_only_quantized_tensors": 0
+      },
+      "schema_version": 1,
+      "scope": "Persistent tensor-byte accounting is exact for the represented dense state and selected payloads. Decode bytes are estimates; local errors are not end-to-end accuracy guarantees.",
+      "selected": {
+        "0": {
+          "bits_per_stage": 4,
+          "block_size": 2,
+          "calibrated": true,
+          "calibration_invocations": 2,
+          "calibration_values": 256,
+          "candidate_id": "rvq-0-b2-k4-s4",
+          "codec": "adaptive_residual_vq",
+          "config": {
+            "bits_per_stage": 4,
+            "block_size": 2,
+            "chunk_size": 31,
+            "codec": "ojasx_adaptive_residual_vq",
+            "kmeans_iterations": 4,
+            "max_codebook_samples": 64,
+            "max_relative_error": null,
+            "max_stages": 4,
+            "min_weight_elements": 1,
+            "require_compression": false,
+            "seed": 71
+          },
+          "decoded_weight_bytes_estimate": 8192,
+          "encoded_weight_bytes": 2688,
+          "estimated_error_for_planning": 0.03793644396426519,
+          "fixed_bytes": 128,
+          "local_output_max_absolute_error": 0.09805679321289062,
+          "local_output_relative_error": 0.03793644396426519,
+          "measured_bits_per_weight": 10.5,
+          "original_weight_bytes": 8192,
+          "payload_resident": true,
+          "stages": 4,
+          "tensor_name": "0",
+          "weight_elements": 2048,
+          "weight_relative_error": 0.0405491639707119,
+          "weight_savings_bytes": 5504
+        },
+        "2": {
+          "bits_per_stage": null,
+          "block_size": null,
+          "calibrated": true,
+          "calibration_invocations": 2,
+          "calibration_values": 512,
+          "candidate_id": "dense",
+          "codec": "dense",
+          "config": null,
+          "decoded_weight_bytes_estimate": 0,
+          "encoded_weight_bytes": 8192,
+          "estimated_error_for_planning": 0.0,
+          "fixed_bytes": 256,
+          "local_output_max_absolute_error": 0.0,
+          "local_output_relative_error": 0.0,
+          "measured_bits_per_weight": 32.0,
+          "original_weight_bytes": 8192,
+          "payload_resident": false,
+          "stages": 0,
+          "tensor_name": "2",
+          "weight_elements": 2048,
+          "weight_relative_error": 0.0,
+          "weight_savings_bytes": 0
+        }
+      },
+      "tensors": [
+        {
+          "attribute": "weight",
+          "decode_group": "0",
+          "dtype": "float32",
+          "dtype_bytes": 4,
+          "fixed_bytes": 128,
+          "layout": "linear",
+          "logical_shape": [
+            32,
+            64
+          ],
+          "matrix_shape": [
+            32,
+            64
+          ],
+          "module_name": "0",
+          "name": "0",
+          "original_weight_bytes": 8192,
+          "protection_reason": null,
+          "quantizable": true,
+          "role": "other",
+          "shared_group": null,
+          "source_quantization": "dense"
+        },
+        {
+          "attribute": "weight",
+          "decode_group": "2",
+          "dtype": "float32",
+          "dtype_bytes": 4,
+          "fixed_bytes": 256,
+          "layout": "linear",
+          "logical_shape": [
+            64,
+            32
+          ],
+          "matrix_shape": [
+            64,
+            32
+          ],
+          "module_name": "2",
+          "name": "2",
+          "original_weight_bytes": 8192,
+          "protection_reason": null,
+          "quantizable": true,
+          "role": "other",
+          "shared_group": null,
+          "source_quantization": "dense"
+        }
+      ]
+    },
+    "report": {
+      "codec": "ojasx_adaptive_residual_vq",
+      "configuration": {
+        "constraints": {
+          "allow_weight_only": false,
+          "decode_row_block_size": 7,
+          "derived_max_model_state_bytes": 13414,
+          "max_decode_group_bytes": null,
+          "max_frontier_states": 2048,
+          "max_model_state_bytes": null,
+          "max_state_plus_cache_bytes": null,
+          "max_tensor_estimated_error": 10.0,
+          "max_tensor_weight_error": null,
+          "max_total_estimated_squared_error": null,
+          "runtime_profile": "memory",
+          "target_state_ratio": 0.8
+        },
+        "planner": "bounded_pareto"
+      },
+      "eligible_layers": 2,
+      "exclude_globs": [],
+      "include_globs": [],
+      "layers": [
+        {
+          "measured_bits_per_weight": 10.5,
+          "module_type": "linear",
+          "name": "0",
+          "nominal_bits_per_weight": 8.0,
+          "original_bytes": 8192,
+          "reason": "admitted_by_generalized_planner",
+          "relative_error": 0.0405491639707119,
+          "selected": true,
+          "selected_stages": 4,
+          "shape": [
+            32,
+            64
+          ],
+          "storage_bytes": 2688
+        },
+        {
+          "measured_bits_per_weight": 0.0,
+          "module_type": "linear",
+          "name": "2",
+          "nominal_bits_per_weight": 0.0,
+          "original_bytes": 8192,
+          "reason": "planner_selected_dense",
+          "relative_error": null,
+          "selected": false,
+          "selected_stages": 0,
+          "shape": [
+            64,
+            32
+          ],
+          "storage_bytes": 8192
+        }
+      ],
+      "module_types": {
+        "linear": {
+          "eligible": 2,
+          "selected": 1
+        }
+      },
+      "preserve_shared_weights": true,
+      "schema_version": 1,
+      "scope": "Per-tensor weight measurements only; excludes tokenizer, KV cache, activations, runtime overhead, and model-quality guarantees",
+      "selected_layers": 1,
+      "selected_original_weight_bytes": 8192,
+      "selected_stored_weight_bytes": 2688,
+      "selected_weight_compression_ratio": 3.0476190476190474
+    },
+    "status": "passed"
+  },
+  "generated_at": "2026-11-04T10:38:29.657524+00:00",
+  "model": {
+    "architecture": "Sequential(Linear(64,32), GELU, Linear(32,64))",
+    "source": "locally initialized tiny random weights; no external checkpoint"
+  },
+  "schema_version": 1,
+  "scope": "Tiny random CPU planner/calibration/gate/runtime evidence only. The illustrative thresholds are not real-checkpoint quality, universal accuracy, production RAM, or speed certification."
+}

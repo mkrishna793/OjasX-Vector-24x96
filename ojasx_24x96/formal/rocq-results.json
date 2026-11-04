@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-04T06:02:11.003717+00:00",
+  "status": "passed",
+  "full_certification": false,
+  "checks": [
+    {
+      "command": [
+        "/home/user/OjasX-open-source-CUDA/.tools/jscoq/node_modules/.bin/jscoq",
+        "run",
+        "--load",
+        "node_modules/jscoq/coq-pkgs/init.coq-pkg,node_modules/jscoq/coq-pkgs/coq-base.coq-pkg,node_modules/jscoq/coq-pkgs/coq-collections.coq-pkg,node_modules/jscoq/coq-pkgs/coq-arith.coq-pkg,node_modules/jscoq/coq-pkgs/coq-reals.coq-pkg,node_modules/jscoq/coq-pkgs/ltac2.coq-pkg",
+        "-l",
+        "/home/user/OjasX-open-source-CUDA/ojasx_vector_quantization_runner/formal/VectorQuantization.v"
+      ],
+      "returncode": 0,
+      "output_tail": "------------------------------------------------------------\n[Warning] vm_compute disabled at configure time; falling back to cbv. [vm-compute-disabled,bytecode-compiler]\n------------------------------------------------------------\n------------------------------------------------------------\n[Warning] vm_compute disabled at configure time; falling back to cbv. [vm-compute-disabled,bytecode-compiler]\n------------------------------------------------------------\n------------------------------------------------------------\n[Warning] vm_compute disabled at configure time; falling back to cbv. [vm-compute-disabled,bytecode-compiler]\n------------------------------------------------------------\n------------------------------------------------------------\n[Warning] vm_compute disabled at configure time; falling back to cbv. [vm-compute-disabled,bytecode-compiler]\n------------------------------------------------------------\n------------------------------------------------------------\n[Warning] vm_compute disabled at configure time; falling back to cbv. [vm-compute-disabled,bytecode-compiler]\n------------------------------------------------------------\n------------------------------------------------------------\n[Warning] vm_compute disabled at configure time; falling back to cbv. [vm-compute-disabled,bytecode-compiler]\n------------------------------------------------------------\n------------------------------------------------------------\n[Warning] vm_compute disabled at configure time; falling back to cbv. [vm-compute-disabled,bytecode-compiler]\n------------------------------------------------------------\n------------------------------------------------------------\n[Warning] vm_compute disabled at configure time; falling back to cbv. [vm-compute-disabled,bytecode-compiler]\n------------------------------------------------------------\n------------------------------------------------------------\n[Warning] vm_compute disabled at configure time; falling back to cbv. [vm-compute-disabled,bytecode-compiler]\n------------------------------------------------------------\n------------------------------------------------------------\n[Notice] Closed under the global context\n------------------------------------------------------------\n------------------------------------------------------------\n[Notice] Closed under the global context\n------------------------------------------------------------\n------------------------------------------------------------\n[Notice] Closed under the global context\n------------------------------------------------------------\n------------------------------------------------------------\n[Notice] Closed under the global context\n------------------------------------------------------------\n------------------------------------------------------------\n[Notice] Closed under the global context\n------------------------------------------------------------\n------------------------------------------------------------\n[Notice] Closed under the global context\n------------------------------------------------------------\n------------------------------------------------------------\n[Notice] Closed under the global context\n------------------------------------------------------------\nunix_open [Arguments] {\n  '0': EB { t: 0, c: '.lia.cache', l: 10 },\n  '1': [ 0, 0, [ 0, 5, 0 ] ],\n  '2': 438\n}\nunix_inchannel_of_filedescr [Arguments] { '0': undefined }\nunix_lseek [Arguments] { '0': undefined, '1': 0, '2': 1 }\nunix_lseek [Arguments] { '0': undefined, '1': 0, '2': 0 }\nunix_lockf [Arguments] { '0': undefined, '1': 4, '2': 1 }\nunix_lseek [Arguments] { '0': undefined, '1': undefined, '2': 0 }\nunix_lseek [Arguments] { '0': undefined, '1': 0, '2': 1 }\nunix_lseek [Arguments] { '0': undefined, '1': 0, '2': 0 }\nunix_lockf [Arguments] { '0': undefined, '1': 0, '2': 1 }\n",
+      "kernel": "rocq-jscoq",
+      "source": "formal/VectorQuantization.v",
+      "source_sha256": "44144fac25347d43c0b9e34a9632a2cf339bc04453da15bfcb776d5df34c0a1f",
+      "declarations": [
+        "vq_pack_left_roundtrip",
+        "vq_pack_right_roundtrip",
+        "vq_residual_reconstruction",
+        "vq_zero_residual_exact",
+        "vq_nonzero_row_scale_roundtrip",
+        "vq_zero_anchor_nonexpanding",
+        "vq_error_budget_nonnegative"
+      ],
+      "closed_under_global_context": 7,
+      "passed": true
+    },
+    {
+      "command": [
+        "/home/user/OjasX-open-source-CUDA/.tools/jscoq/node_modules/.bin/jscoq",
+        "run",
+        "--load",
+        "node_modules/jscoq/coq-pkgs/init.coq-pkg,node_modules/jscoq/coq-pkgs/coq-base.coq-pkg,node_modules/jscoq/coq-pkgs/coq-collections.coq-pkg,node_modules/jscoq/coq-pkgs/coq-arith.coq-pkg,node_modules/jscoq/coq-pkgs/coq-reals.coq-pkg,node_modules/jscoq/coq-pkgs/ltac2.coq-pkg",
+        "-l",
+        "/tmp/ojasx-vq-rocq-whgxma9n/FalseGuard.v"
+      ],
+      "returncode": 1,
+      "output_tail": "------------------------------------------------------------\n[Error] Tactic failure:  Cannot find witness.\n------------------------------------------------------------\n{\"fname\":[\"ToplevelInput\"],\"line_nb\":1,\"bol_pos\":0,\"line_nb_last\":1,\"bol_pos_last\":0,\"bp\":0,\"ep\":48}\n------------------------------------------------------------\n[Error] Tactic failure:  Cannot find witness.\n------------------------------------------------------------\n{\"fname\":[\"ToplevelInput\"],\"line_nb\":1,\"bol_pos\":0,\"line_nb_last\":1,\"bol_pos_last\":0,\"bp\":0,\"ep\":48}\nAborted.\nunix_open [Arguments] {\n  '0': EB { t: 0, c: '.lia.cache', l: 10 },\n  '1': [ 0, 0, [ 0, 5, 0 ] ],\n  '2': 438\n}\nunix_inchannel_of_filedescr [Arguments] { '0': undefined }\nunix_lseek [Arguments] { '0': undefined, '1': 0, '2': 1 }\nunix_lseek [Arguments] { '0': undefined, '1': 0, '2': 0 }\nunix_lockf [Arguments] { '0': undefined, '1': 4, '2': 1 }\nunix_lseek [Arguments] { '0': undefined, '1': undefined, '2': 0 }\nunix_lseek [Arguments] { '0': undefined, '1': 0, '2': 1 }\nunix_lseek [Arguments] { '0': undefined, '1': 0, '2': 0 }\nunix_lockf [Arguments] { '0': undefined, '1': 0, '2': 1 }\n[Exception] Tactic failure:  Cannot find witness.\n{\"fname\":[\"ToplevelInput\"],\"line_nb\":1,\"bol_pos\":0,\"line_nb_last\":1,\"bol_pos_last\":0,\"bp\":0,\"ep\":48}\n",
+      "kernel": "rocq-jscoq",
+      "negative_control": true,
+      "passed": true
+    }
+  ],
+  "scope": "Kernel-checked canonical-rational/Boolean codec laws only; not IEEE arithmetic, model quality, HF coverage, or hardware execution"
+}

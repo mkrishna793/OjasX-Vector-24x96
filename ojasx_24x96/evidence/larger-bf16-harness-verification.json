@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "scope": "Implementation and synthetic integration verification of the larger-BF16 qualification harness only",
+  "status": "harness-verified-checkpoint-not-acquired",
+  "larger_checkpoint_qualification": {
+    "status": "not-run-payload-unavailable",
+    "checkpoint_acquired": false,
+    "dense_ram_reduction_claim": "No qualified dense-RAM reduction claim",
+    "reason": "No accessible licensed trained BF16/HF checkpoint at the required scale was available in the permitted download environment. GitHub LFS returned 403 and release payloads redirected outside the permitted hosts.",
+    "note": "The tiny random integration fixture exercises contracts only and is not trained-model, quality, scale, or RAM evidence."
+  },
+  "source_sha256": {
+    "ojasx_vector_quantization_runner/larger_bf16_qualify.py": "af9185dbdc00d1dce1aa1bdb9e2b480830d8ecf25d964ca28d70009568460084",
+    "tests/test_ojasx_vector_quantization_larger_bf16.py": "31fde3402cd97ef1175e4f0392d10f13b69178fe92473d87524352216059f443",
+    "ojasx_vector_quantization_runner/LARGER_BF16.md": "2d0cc05ff37055b695ca41bc4a646f0d526d1d8a2326fc4d386cf505ad8c8d81"
+  },
+  "verification": {
+    "focused_pytest": {
+      "passed": 78,
+      "failed": 0,
+      "log": "evidence/larger-bf16-focused-pytest.txt",
+      "log_sha256": "1bc1d7cfe228498bc1f831c8ddce6736011dc9edf17eb2e620287a42095e86fc"
+    },
+    "full_pytest": {
+      "passed": 1388,
+      "skipped": 72,
+      "failed": 0,
+      "log": "evidence/larger-bf16-full-pytest.txt",
+      "log_sha256": "39d26473495e1c9820a6bbc43d13b89430bbb71306bc5e5bc4c299f1793c48b1"
+    },
+    "static_symbolic": {
+      "stages_passed": 7,
+      "stages_total": 7,
+      "python_files": 359,
+      "undefined_names": 0,
+      "log": "evidence/larger-bf16-static-verification.txt",
+      "log_sha256": "40febf21f8f535ce9034a5c60e108d216842d7d1317ea9cf7eb4318f2587094c"
+    },
+    "markdown_links": {
+      "checked": 266,
+      "broken": 0
+    }
+  },
+  "preferred_official_candidate_not_acquired": {
+    "repository": "karpathy/tinyllamas",
+    "revision": "0bd21da7698eaf29a0d7de3992de8a46ef624add",
+    "file": "stories42M.bin",
+    "bytes": 167020572,
+    "sha256": "9f65a1000e17d0bc167dd6332e0ce5119a0222a3d920cead5bce413bfab2ee7b",
+    "format": "llama2.c FP32 binary; requires a separate audited HF/BF16 conversion and tokenizer before this harness can run",
+    "training_scope": "Official TinyStories 42M checkpoint; upstream validation loss is not a result of this harness"
+  }
+}

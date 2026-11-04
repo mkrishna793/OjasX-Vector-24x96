@@ -1,0 +1,186 @@
+{
+  "native_cpu_status": {
+    "available": true,
+    "reason": "loaded",
+    "library_path": "/Users/mohana/.cache/ojasx-leech24-native/libleech24-8c33606abdf98fea.so",
+    "build_flags": [
+      "-O3",
+      "-std=c++17",
+      "-fPIC",
+      "-shared",
+      "-ffp-contract=off",
+      "-fno-fast-math"
+    ],
+    "native_table_bytes": 21628,
+    "source_sha256": "8a81b6eb9c1e07c35ad3ccb53ad24a8f3690bea38cd0d5b93853af8fc406ba17",
+    "build_identity_sha256": "8c33606abdf98feab82b898d5363812ffa6052b2b13412a2080d5b3307e18ab2",
+    "compiler_version": "Apple clang version 21.0.0 (clang-2100.4.1.1)"
+  },
+  "cuda_kernel_status": {
+    "exists": true,
+    "source_path": "/Users/mohana/Developer/OjasX/OjasX-24X96/ojasx_24x96/native/vq_kernels_cuda.cu",
+    "source_sha256": "ed98d7444bc04ce66ed7e38720bfab0ef13e50c4f6504b8ec77b2ae9e416faf7",
+    "nvcc_available": false,
+    "nvcc_path": null,
+    "torch_cuda_available": false,
+    "ready_for_cuda_build": false
+  },
+  "models": {
+    "Qwen3.8-Hybrid (Qwen3_5)": {
+      "model_type": "qwen3_5_text",
+      "architecture_class": "Qwen3_5ForCausalLM",
+      "attention_types": [
+        "full_attention",
+        "linear_recurrent"
+      ],
+      "selected_layers": 1,
+      "total_eligible_layers": 17,
+      "weight_compression_ratio": 15.568,
+      "original_weight_bytes": 880128,
+      "compressed_weight_bytes": 811136,
+      "m0_admission_4k_total_bytes": 19888192,
+      "m0_kv_cache_4k_bytes": 791040,
+      "m0_max_ctx_under_64mb": 250037,
+      "m1_oqpack_shards": 16,
+      "m1_oqpack_exact_match": true,
+      "m3_certificate_passed": true,
+      "m3_mean_kl": 0.00023,
+      "m3_top1_agreement": 0.8,
+      "m3_top5_agreement": 1.0,
+      "m4_kv_cache_runtime": {
+        "supported": true,
+        "matches_exactly": true,
+        "max_logit_abs_diff": 2.086162567138672e-07,
+        "turn1_prefill_tokens": 2,
+        "turn2_prefill_tokens": 2,
+        "turn2_kv_bytes": 10752,
+        "kv_bytes_after_reset": 0
+      },
+      "m5_fused_native_modules": 1,
+      "m5_max_fused_abs_diff": 2.384185791015625e-07,
+      "elapsed_sec": 4.07
+    },
+    "Gemma-4-Hybrid": {
+      "model_type": "gemma4_text",
+      "architecture_class": "Gemma4ForCausalLM",
+      "attention_types": [
+        "full_attention",
+        "sliding_attention"
+      ],
+      "selected_layers": 5,
+      "total_eligible_layers": 22,
+      "weight_compression_ratio": 16.01,
+      "original_weight_bytes": 538320896,
+      "compressed_weight_bytes": 537767912,
+      "m0_admission_4k_total_bytes": 556852648,
+      "m0_kv_cache_4k_bytes": 798720,
+      "m0_max_ctx_under_64mb": 0,
+      "m1_oqpack_shards": 16,
+      "m1_oqpack_exact_match": true,
+      "m3_certificate_passed": true,
+      "m3_mean_kl": 0.00682,
+      "m3_top1_agreement": 0.2667,
+      "m3_top5_agreement": 0.6167,
+      "m4_kv_cache_runtime": {
+        "supported": true,
+        "matches_exactly": true,
+        "max_logit_abs_diff": 5.960464477539062e-07,
+        "turn1_prefill_tokens": 2,
+        "turn2_prefill_tokens": 2,
+        "turn2_kv_bytes": 7688,
+        "kv_bytes_after_reset": 0
+      },
+      "m5_fused_native_modules": 5,
+      "m5_max_fused_abs_diff": 5.364418029785156e-07,
+      "elapsed_sec": 8.52
+    },
+    "GLM-5.3-MoE-MLA": {
+      "model_type": "glm_moe_dsa",
+      "architecture_class": "GlmMoeDsaForCausalLM",
+      "attention_types": [
+        "mla_attention"
+      ],
+      "selected_layers": 1,
+      "total_eligible_layers": 24,
+      "weight_compression_ratio": 15.463,
+      "original_weight_bytes": 884224,
+      "compressed_weight_bytes": 849744,
+      "m0_admission_4k_total_bytes": 20053264,
+      "m0_kv_cache_4k_bytes": 655360,
+      "m0_max_ctx_under_64mb": 298193,
+      "m1_oqpack_shards": 14,
+      "m1_oqpack_exact_match": true,
+      "m3_certificate_passed": true,
+      "m3_mean_kl": 0.00082,
+      "m3_top1_agreement": 0.6833,
+      "m3_top5_agreement": 0.9667,
+      "m4_kv_cache_runtime": {
+        "supported": false
+      },
+      "m5_fused_native_modules": 1,
+      "m5_max_fused_abs_diff": 2.384185791015625e-07,
+      "elapsed_sec": 4.25
+    },
+    "DeepSeek-V4-MLA": {
+      "model_type": "deepseek_v4",
+      "architecture_class": "DeepseekV4ForCausalLM",
+      "attention_types": [
+        "mla_attention"
+      ],
+      "selected_layers": 1,
+      "total_eligible_layers": 26,
+      "weight_compression_ratio": 17.035,
+      "original_weight_bytes": 27480064,
+      "compressed_weight_bytes": 27202464,
+      "m0_admission_4k_total_bytes": 52631904,
+      "m0_kv_cache_4k_bytes": 655360,
+      "m0_max_ctx_under_64mb": 94577,
+      "m1_oqpack_shards": 35,
+      "m1_oqpack_exact_match": true,
+      "m3_certificate_passed": true,
+      "m3_mean_kl": 0.0,
+      "m3_top1_agreement": 1.0,
+      "m3_top5_agreement": 1.0,
+      "m4_kv_cache_runtime": {
+        "supported": false
+      },
+      "m5_fused_native_modules": 1,
+      "m5_max_fused_abs_diff": 0.0,
+      "elapsed_sec": 41.14
+    },
+    "Custom-Gated-PyTorch": {
+      "model_type": "custom_pytorch_module",
+      "architecture_class": "CustomSequenceClassifier",
+      "attention_types": [
+        "full_attention"
+      ],
+      "selected_layers": 1,
+      "total_eligible_layers": 4,
+      "weight_compression_ratio": 15.594,
+      "original_weight_bytes": 344064,
+      "compressed_weight_bytes": 252064,
+      "m0_admission_4k_total_bytes": 20358752,
+      "m0_kv_cache_4k_bytes": 1572864,
+      "m0_max_ctx_under_64mb": 125841,
+      "m1_oqpack_shards": 5,
+      "m1_oqpack_exact_match": true,
+      "m3_certificate_passed": true,
+      "m3_mean_kl": 0.02644,
+      "m3_top1_agreement": 0.45,
+      "m3_top5_agreement": 0.9333,
+      "m4_kv_cache_runtime": {
+        "supported": false
+      },
+      "m5_fused_native_modules": 1,
+      "m5_max_fused_abs_diff": 7.152557373046875e-07,
+      "elapsed_sec": 1.48
+    }
+  },
+  "m2_streaming_ingest": {
+    "total_tensors": 21,
+    "quantized_tensors": 14,
+    "resumed_tensors": 3,
+    "compression_ratio": 3.584,
+    "peak_single_tensor_ratio": 0.114
+  }
+}

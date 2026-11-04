@@ -1,0 +1,171 @@
+{
+  "codec_smoke": {
+    "evidence": "evidence/codec-smoke.json",
+    "status": "passed"
+  },
+  "complete_repository": {
+    "failed": 0,
+    "log": "evidence/full-pytest.txt",
+    "passed": 1382,
+    "skipped": 72
+  },
+  "current_model_matrix": "CURRENT_MODELS.md",
+  "deepseek_v41_transformers_5_22_1_registered": false,
+  "environment": {
+    "cpu_threads": 1,
+    "cuda_available": false,
+    "platform": "Linux-6.1.158+-x86_64-with-glibc2.36",
+    "python": "3.11.2",
+    "torch": "2.15.0+cu132"
+  },
+  "full_certification": false,
+  "generalized_features": {
+    "actual_post_apply_state_prediction_checked": true,
+    "bounded_local_activation_calibration": true,
+    "end_to_end_quality_gates": true,
+    "mixed_learned_and_leech_candidates": true,
+    "multi_candidate_pareto_planner": true,
+    "plan_persistence": "vq_plan.json",
+    "streaming_row_and_active_expert_decode": true,
+    "tensor_ir_and_role_policies": true
+  },
+  "generalized_smoke": {
+    "dense_state_bytes": 16768,
+    "evidence": "evidence/generalized-smoke.json",
+    "quantized_state_bytes": 11264,
+    "relative_logits_l2_error": 0.03353548437362501,
+    "scope": "Tiny random CPU planner/calibration/gate/runtime evidence only; not real-checkpoint quality, universal accuracy, production RAM, or speed certification.",
+    "status": "passed",
+    "top1_agreement": 0.875
+  },
+  "generated_at": "2026-11-04T11:43:18.879586+00:00",
+  "hardware": "CPU only",
+  "hf_architectures_executed": [
+    "tiny random Qwen2, Qwen3, Llama, Gemma3, Mistral, GPT-2",
+    "tiny random Qwen3-Next",
+    "tiny random Qwen3.5 text/MoE",
+    "tiny random Qwen3.5 composite input_ids-only",
+    "tiny random Qwen2-MoE, Qwen3-MoE, Mixtral including fused experts",
+    "tiny random Gemma4 text/MoE and composite input_ids-only",
+    "tiny random GLM-MoE-DSA",
+    "tiny random GLM5-Next composite input_ids-only with clamped experts",
+    "tiny random DeepSeek-V4 with dense grouped-linear fallback"
+  ],
+  "isolated_tests": {
+    "failed": 0,
+    "log": "evidence/focused-pytest.txt",
+    "passed": 72
+  },
+  "leech24_features": {
+    "bounded_streaming_and_speed_cache": true,
+    "compact_18_bit_and_adaptive_payloads": true,
+    "golay_leech_minimum_shell_construction": true,
+    "mixed_learned_leech_dense_tensor_ir_and_global_planner": true,
+    "native_auto_fallback_and_explicit_fail_closed": true,
+    "native_cpu_row_decoder": true,
+    "native_dense_ram_win_demonstrated": false,
+    "native_python_bitwise_real_artifact_outputs": true,
+    "process_ram_reduction_demonstrated": false,
+    "real_trained_checkpoint_quality_gates": true,
+    "save_and_bf16_meta_reload_without_dense_source": true,
+    "shared_orthogonal_transform_and_residual_stages": true,
+    "universal_accuracy_compression_or_speed_claimed": false
+  },
+  "leech24_smoke": {
+    "complete_index_domain_packed_bytes": 442263,
+    "decoded_indices": 196561,
+    "decoder_table_bytes_before_search": 207136,
+    "evidence": "evidence/leech24-smoke.json",
+    "matched_actual_byte_learned_vq_comparison": true,
+    "scope": "Exhaustive finite-shell math plus one synthetic matrix; not a universal codec ranking or model-quality result.",
+    "status": "passed",
+    "unique_verified_lattice_points": 196561
+  },
+  "native_runtime": {
+    "baseline_profile": {
+      "evidence": "evidence/leech24-native-baseline-cprofile.txt",
+      "profiled_forwards": 3,
+      "row_decode_cumulative_seconds": 0.279,
+      "scope": "Historical pre-native cProfile; timing rounded to the displayed milliseconds.",
+      "shell_decode_cumulative_seconds": 0.134,
+      "total_seconds": 0.337
+    },
+    "documentation": "LEECH24_NATIVE.md",
+    "evidence": "evidence/leech24-native-runtime.json",
+    "model_shard_sha256": "1a3e9d5e7210cd44cb5dbea266ddb488b8d5034658b3c0161fe9bd94dfcc3aa9",
+    "native_cpp_table_bytes": 21628,
+    "native_memory_decode_speedup_vs_python": 3.7998709257249144,
+    "native_memory_decode_time_ratio_to_dense": 1.4495579252523685,
+    "native_memory_decoded_cache_bytes": 0,
+    "native_memory_initialized_python_table_bytes": 0,
+    "native_minus_dense_sampled_decode_rss_bytes": 2551808,
+    "native_minus_python_sampled_decode_rss_bytes": -491520,
+    "native_source_sha256": "8ef9963aed85e28d5a7f7ea30e0114d0562be473c63f869460c913b88a8f4f37",
+    "native_speed_decode_time_ratio_to_dense": 1.0381045625839997,
+    "native_speed_decoded_cache_bytes": 184320,
+    "python_memory_decode_time_ratio_to_dense": 5.508133015320603,
+    "python_memory_initialized_table_bytes": 207136,
+    "python_native_memory_prefill_bitwise_equal": true,
+    "python_native_speed_prefill_bitwise_equal": true,
+    "scope": "One fixed TinyGPT artifact on Linux CPU. Native improves Leech latency and reduces Python table/temporary overhead; dense RSS remains lower in this tiny probe. No CUDA, throughput, larger-model RAM, or production-kernel claim.",
+    "status": "passed"
+  },
+  "official_current_checkpoint_quality_or_speed_tested": false,
+  "real_checkpoint_qualification": {
+    "dense_bf16_persistent_bytes": 2013952,
+    "dense_source_materialized_on_quantized_reload": false,
+    "eligible_tensors": "blocks.0.* only",
+    "evidence": "evidence/leech24-real-qualification.json",
+    "leech_selected_tensors": 2,
+    "mean_kl": 0.024591845164461713,
+    "mean_nll_delta": 0.027246149819041176,
+    "model": "HeathLoganCampbell/one-million-params tiny-gpt-1m-mixed.pt",
+    "persistent_savings_bytes": 152025,
+    "persistent_savings_fraction": 0.07548591028981823,
+    "positions": 381,
+    "quantized_memory_decode_time_ratio_to_dense": 5.155053302659037,
+    "quantized_memory_sampled_decode_rss_delta_bytes": 3051520,
+    "quantized_persistent_bytes": 1861927,
+    "quantized_speed_decode_time_ratio_to_dense": 1.0143746459279748,
+    "relative_logits_l2_error": 0.06675595100995627,
+    "scope": "One small real trained checkpoint cast to BF16 and a pinned substitute corpus. Persistent bytes decreased; sampled whole-process RSS did not. Not broad quality, RAM, or throughput certification.",
+    "source_sha256": "05b9bc603f9a826867dadc67302021d3dd77248af6ef42b3682844759d974228",
+    "speed_decoded_cache_bytes": 184320,
+    "status": "passed",
+    "top1_agreement": 0.9186351706036745,
+    "validation_scope": "Pinned substitute byte corpus, not the checkpoint's original validation split"
+  },
+  "real_checkpoint_quality_evaluated": true,
+  "rocq": {
+    "closed_declarations": 7,
+    "current_run": false,
+    "negative_control": true,
+    "reason": "jsCoq was not reinstalled for the final Leech run; existing evidence was not refreshed.",
+    "status": "historical_passed"
+  },
+  "runner_version": "0.4.0",
+  "runtime_smoke": {
+    "device": "CPU",
+    "evidence": "evidence/runtime-smoke.json",
+    "scope": "tiny random Qwen3 forward only",
+    "status": "passed"
+  },
+  "schema_version": 1,
+  "scope": "Standalone learned/Leech codec, native CPU row decoder, tensor IR/planner, HF implementation, synthetic and tiny real-checkpoint runtime evidence; no large-model quality, universal architecture, dense-RAM saving, hardware-speed, IEEE-kernel, Unsloth/LM Studio integration, or production certification",
+  "source_tree_hash_algorithm": "SHA-256 over sorted relative path, NUL, file bytes, NUL",
+  "source_tree_hash_scope": "All runner Python/C++/Rocq/Markdown sources plus three isolated runner test files; generated evidence and __pycache__ excluded",
+  "source_tree_sha256": "f06ea3431f41fa9f120f3f44a8156a91c01022459678057752b5a36f45a0b441",
+  "static_symbolic_stages": {
+    "log": "evidence/static-verification.txt",
+    "passed": 7,
+    "python_files_audited": 357,
+    "total": 7
+  },
+  "status": "passed",
+  "z3": {
+    "counterexamples": 4,
+    "current_run": true,
+    "proofs": 9,
+    "status": "passed"
+  }
+}

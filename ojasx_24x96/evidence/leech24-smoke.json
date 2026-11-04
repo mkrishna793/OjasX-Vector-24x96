@@ -1,0 +1,470 @@
+{
+  "adaptive_stage_comparisons": [
+    {
+      "adaptive_relative_error": 0.25206977418000825,
+      "adaptive_storage_bytes": 1096,
+      "gain_bits": 1,
+      "nonadaptive_relative_error": 0.25206977418000825,
+      "nonadaptive_storage_bytes": 1064,
+      "rotation_reflections": 0
+    }
+  ],
+  "comparison_accounting": "All rows use the identical source matrix and measured encoded tensor bytes. Each Leech row selects the lowest-error generated learned-VQ candidate at or below that byte budget; exact-byte matches are reported separately when one exists. This is a finite generated-candidate comparison, not a global rate-distortion optimum.",
+  "environment": {
+    "cuda_available": false,
+    "platform": "Linux-6.1.158+-x86_64-with-glibc2.36",
+    "python": "3.11.2",
+    "torch": "2.15.0+cu132"
+  },
+  "generated_at": "2026-11-04T11:39:06.994018+00:00",
+  "mathematics": {
+    "all_nonzero_points_on_shell_2": true,
+    "all_points_are_leech_members": true,
+    "brute_force_nearest_max_absolute_dot_error": 3.552713678800501e-15,
+    "complete_pack_roundtrip_exact": true,
+    "decoded_indices": 196561,
+    "decoder_table_bytes_before_search": 207136,
+    "golay_codewords": 4096,
+    "golay_weight_distribution": {
+      "0": 1,
+      "12": 2576,
+      "16": 759,
+      "24": 1,
+      "8": 759
+    },
+    "householder_roundtrip_max_absolute_error": 6.661338147750939e-16,
+    "index_bits": 18,
+    "nonzero_shell_points": 196560,
+    "packed_bytes_for_complete_index_domain": 442263,
+    "shared_tables_after_encoder_search_bytes": 1139296,
+    "unique_decoded_points": 196561
+  },
+  "rate_distortion": [
+    {
+      "active_counts": [
+        128,
+        125,
+        125
+      ],
+      "adaptive_stages": true,
+      "best_learned_vq_at_identical_actual_bytes": {
+        "bits_per_stage": 2,
+        "block_size": 8,
+        "measured_bits_per_weight": 2.6666666666666665,
+        "relative_error": 0.63548885861738,
+        "stages": 4,
+        "storage_bytes": 1024
+      },
+      "best_learned_vq_at_or_below_actual_byte_budget": {
+        "bits_per_stage": 2,
+        "block_size": 8,
+        "measured_bits_per_weight": 2.6666666666666665,
+        "relative_error": 0.63548885861738,
+        "stages": 4,
+        "storage_bytes": 1024
+      },
+      "codec": "leech24_shell2_residual",
+      "gain_bits": 0,
+      "measured_bits_per_weight": 2.6666666666666665,
+      "original_bytes": 12288,
+      "relative_error": 0.5928185721333811,
+      "rotation_reflections": 0,
+      "stage_relative_errors": [
+        0.743512443812656,
+        0.6534046673766394,
+        0.5928185758286345
+      ],
+      "stages": 3,
+      "storage_bytes": 1024
+    },
+    {
+      "active_counts": [
+        128,
+        125,
+        125
+      ],
+      "adaptive_stages": true,
+      "best_learned_vq_at_identical_actual_bytes": {
+        "bits_per_stage": 2,
+        "block_size": 8,
+        "measured_bits_per_weight": 2.6666666666666665,
+        "relative_error": 0.63548885861738,
+        "stages": 4,
+        "storage_bytes": 1024
+      },
+      "best_learned_vq_at_or_below_actual_byte_budget": {
+        "bits_per_stage": 2,
+        "block_size": 8,
+        "measured_bits_per_weight": 2.6666666666666665,
+        "relative_error": 0.63548885861738,
+        "stages": 4,
+        "storage_bytes": 1024
+      },
+      "codec": "leech24_shell2_residual",
+      "gain_bits": 0,
+      "measured_bits_per_weight": 2.6666666666666665,
+      "original_bytes": 12288,
+      "relative_error": 0.6077733659617895,
+      "rotation_reflections": 2,
+      "stage_relative_errors": [
+        0.7537511092084569,
+        0.6502361010630714,
+        0.6077733590809027
+      ],
+      "stages": 3,
+      "storage_bytes": 1024
+    },
+    {
+      "active_counts": [
+        128,
+        128,
+        128
+      ],
+      "adaptive_stages": true,
+      "best_learned_vq_at_identical_actual_bytes": null,
+      "best_learned_vq_at_or_below_actual_byte_budget": {
+        "bits_per_stage": 2,
+        "block_size": 8,
+        "measured_bits_per_weight": 2.6666666666666665,
+        "relative_error": 0.63548885861738,
+        "stages": 4,
+        "storage_bytes": 1024
+      },
+      "codec": "leech24_shell2_residual",
+      "gain_bits": 1,
+      "measured_bits_per_weight": 2.8541666666666665,
+      "original_bytes": 12288,
+      "relative_error": 0.25206977418000825,
+      "rotation_reflections": 0,
+      "stage_relative_errors": [
+        0.6309043004522039,
+        0.3982969951787638,
+        0.25206977532443825
+      ],
+      "stages": 3,
+      "storage_bytes": 1096
+    },
+    {
+      "active_counts": [
+        128,
+        128,
+        128
+      ],
+      "adaptive_stages": false,
+      "best_learned_vq_at_identical_actual_bytes": null,
+      "best_learned_vq_at_or_below_actual_byte_budget": {
+        "bits_per_stage": 2,
+        "block_size": 8,
+        "measured_bits_per_weight": 2.6666666666666665,
+        "relative_error": 0.63548885861738,
+        "stages": 4,
+        "storage_bytes": 1024
+      },
+      "codec": "leech24_shell2_residual",
+      "gain_bits": 1,
+      "measured_bits_per_weight": 2.7708333333333335,
+      "original_bytes": 12288,
+      "relative_error": 0.25206977418000825,
+      "rotation_reflections": 0,
+      "stage_relative_errors": [
+        0.6309043004522039,
+        0.3982969951787638,
+        0.25206977532443825
+      ],
+      "stages": 3,
+      "storage_bytes": 1064
+    },
+    {
+      "active_counts": [
+        128,
+        128,
+        128
+      ],
+      "adaptive_stages": true,
+      "best_learned_vq_at_identical_actual_bytes": null,
+      "best_learned_vq_at_or_below_actual_byte_budget": {
+        "bits_per_stage": 2,
+        "block_size": 8,
+        "measured_bits_per_weight": 2.6666666666666665,
+        "relative_error": 0.63548885861738,
+        "stages": 4,
+        "storage_bytes": 1024
+      },
+      "codec": "leech24_shell2_residual",
+      "gain_bits": 1,
+      "measured_bits_per_weight": 2.8541666666666665,
+      "original_bytes": 12288,
+      "relative_error": 0.25480997662733673,
+      "rotation_reflections": 2,
+      "stage_relative_errors": [
+        0.6334200239544289,
+        0.4005503887433978,
+        0.25480998039808367
+      ],
+      "stages": 3,
+      "storage_bytes": 1096
+    },
+    {
+      "active_counts": [
+        128,
+        128,
+        128
+      ],
+      "adaptive_stages": false,
+      "best_learned_vq_at_identical_actual_bytes": null,
+      "best_learned_vq_at_or_below_actual_byte_budget": {
+        "bits_per_stage": 2,
+        "block_size": 8,
+        "measured_bits_per_weight": 2.6666666666666665,
+        "relative_error": 0.63548885861738,
+        "stages": 4,
+        "storage_bytes": 1024
+      },
+      "codec": "leech24_shell2_residual",
+      "gain_bits": 1,
+      "measured_bits_per_weight": 2.7708333333333335,
+      "original_bytes": 12288,
+      "relative_error": 0.25480997662733673,
+      "rotation_reflections": 2,
+      "stage_relative_errors": [
+        0.6334200239544289,
+        0.4005503887433978,
+        0.25480998039808367
+      ],
+      "stages": 3,
+      "storage_bytes": 1064
+    },
+    {
+      "active_counts": [
+        128,
+        128,
+        128
+      ],
+      "adaptive_stages": true,
+      "best_learned_vq_at_identical_actual_bytes": {
+        "bits_per_stage": 1,
+        "block_size": 24,
+        "measured_bits_per_weight": 3.0416666666666665,
+        "relative_error": 0.9180556974611197,
+        "stages": 5,
+        "storage_bytes": 1168
+      },
+      "best_learned_vq_at_or_below_actual_byte_budget": {
+        "bits_per_stage": 2,
+        "block_size": 8,
+        "measured_bits_per_weight": 2.6666666666666665,
+        "relative_error": 0.63548885861738,
+        "stages": 4,
+        "storage_bytes": 1024
+      },
+      "codec": "leech24_shell2_residual",
+      "gain_bits": 2,
+      "measured_bits_per_weight": 3.0416666666666665,
+      "original_bytes": 12288,
+      "relative_error": 0.24912756828162294,
+      "rotation_reflections": 0,
+      "stage_relative_errors": [
+        0.6290687480294743,
+        0.3958130185535839,
+        0.24912756725371488
+      ],
+      "stages": 3,
+      "storage_bytes": 1168
+    },
+    {
+      "active_counts": [
+        128,
+        128,
+        128
+      ],
+      "adaptive_stages": true,
+      "best_learned_vq_at_identical_actual_bytes": {
+        "bits_per_stage": 1,
+        "block_size": 24,
+        "measured_bits_per_weight": 3.0416666666666665,
+        "relative_error": 0.9180556974611197,
+        "stages": 5,
+        "storage_bytes": 1168
+      },
+      "best_learned_vq_at_or_below_actual_byte_budget": {
+        "bits_per_stage": 2,
+        "block_size": 8,
+        "measured_bits_per_weight": 2.6666666666666665,
+        "relative_error": 0.63548885861738,
+        "stages": 4,
+        "storage_bytes": 1024
+      },
+      "codec": "leech24_shell2_residual",
+      "gain_bits": 2,
+      "measured_bits_per_weight": 3.0416666666666665,
+      "original_bytes": 12288,
+      "relative_error": 0.2517864762072906,
+      "rotation_reflections": 2,
+      "stage_relative_errors": [
+        0.6315269772830487,
+        0.39762866009334635,
+        0.25178647439437396
+      ],
+      "stages": 3,
+      "storage_bytes": 1168
+    },
+    {
+      "bits_per_stage": 1,
+      "block_size": 24,
+      "codec": "adaptive_residual_vq",
+      "measured_bits_per_weight": 3.0416666666666665,
+      "original_bytes": 12288,
+      "relative_error": 0.9180556974611197,
+      "stages": 5,
+      "storage_bytes": 1168
+    },
+    {
+      "bits_per_stage": 2,
+      "block_size": 24,
+      "codec": "adaptive_residual_vq",
+      "measured_bits_per_weight": 2.5,
+      "original_bytes": 12288,
+      "relative_error": 0.9052536592336897,
+      "stages": 2,
+      "storage_bytes": 960
+    },
+    {
+      "bits_per_stage": 4,
+      "block_size": 24,
+      "codec": "adaptive_residual_vq",
+      "measured_bits_per_weight": 4.5,
+      "original_bytes": 12288,
+      "relative_error": 0.8330186872134133,
+      "stages": 1,
+      "storage_bytes": 1728
+    },
+    {
+      "bits_per_stage": 1,
+      "block_size": 16,
+      "codec": "adaptive_residual_vq",
+      "measured_bits_per_weight": 1.9166666666666667,
+      "original_bytes": 12288,
+      "relative_error": 0.9311712358457033,
+      "stages": 4,
+      "storage_bytes": 736
+    },
+    {
+      "bits_per_stage": 2,
+      "block_size": 16,
+      "codec": "adaptive_residual_vq",
+      "measured_bits_per_weight": 2.7083333333333335,
+      "original_bytes": 12288,
+      "relative_error": 0.8291763415847475,
+      "stages": 3,
+      "storage_bytes": 1040
+    },
+    {
+      "bits_per_stage": 4,
+      "block_size": 16,
+      "codec": "adaptive_residual_vq",
+      "measured_bits_per_weight": 6.166666666666667,
+      "original_bytes": 12288,
+      "relative_error": 0.6746020942665171,
+      "stages": 2,
+      "storage_bytes": 2368
+    },
+    {
+      "bits_per_stage": 2,
+      "block_size": 8,
+      "codec": "adaptive_residual_vq",
+      "measured_bits_per_weight": 2.6666666666666665,
+      "original_bytes": 12288,
+      "relative_error": 0.63548885861738,
+      "stages": 4,
+      "storage_bytes": 1024
+    },
+    {
+      "bits_per_stage": 4,
+      "block_size": 8,
+      "codec": "adaptive_residual_vq",
+      "measured_bits_per_weight": 2.1666666666666665,
+      "original_bytes": 12288,
+      "relative_error": 0.7414777330512243,
+      "stages": 1,
+      "storage_bytes": 832
+    },
+    {
+      "bits_per_stage": 4,
+      "block_size": 8,
+      "codec": "adaptive_residual_vq",
+      "measured_bits_per_weight": 4.0,
+      "original_bytes": 12288,
+      "relative_error": 0.5473386504839511,
+      "stages": 2,
+      "storage_bytes": 1536
+    }
+  ],
+  "rotation_comparisons_at_identical_bytes": [
+    {
+      "adaptive_stages": true,
+      "gain_bits": 0,
+      "identical_storage_bytes": true,
+      "relative_error_with_two_reflections": 0.6077733659617895,
+      "relative_error_without_rotation": 0.5928185721333811,
+      "storage_bytes": 1024
+    },
+    {
+      "adaptive_stages": true,
+      "gain_bits": 1,
+      "identical_storage_bytes": true,
+      "relative_error_with_two_reflections": 0.25480997662733673,
+      "relative_error_without_rotation": 0.25206977418000825,
+      "storage_bytes": 1096
+    },
+    {
+      "adaptive_stages": false,
+      "gain_bits": 1,
+      "identical_storage_bytes": true,
+      "relative_error_with_two_reflections": 0.25480997662733673,
+      "relative_error_without_rotation": 0.25206977418000825,
+      "storage_bytes": 1064
+    },
+    {
+      "adaptive_stages": true,
+      "gain_bits": 2,
+      "identical_storage_bytes": true,
+      "relative_error_with_two_reflections": 0.2517864762072906,
+      "relative_error_without_rotation": 0.24912756828162294,
+      "storage_bytes": 1168
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Exhaustive finite-shell math checks plus one synthetic matrix. Rate-distortion rows are not a universal codec ranking or model-quality claim.",
+  "streaming": {
+    "cached_versus_streamed_max_absolute_output_error": 0.0,
+    "full_versus_streamed_max_absolute_output_error": 0.0,
+    "memory_profile": {
+      "combined_vq_bytes": 1224,
+      "decoded_cache_bytes": 0,
+      "model_state_plus_decoded_cache_bytes": 1224,
+      "model_unique_state_tensor_bytes": 1224,
+      "non_vq_state_tensor_bytes": 0,
+      "vq_layers": 1,
+      "vq_storage_bytes_including_bias": 1224
+    },
+    "row_block_size": 7,
+    "speed_profile": {
+      "combined_vq_bytes": 13512,
+      "decoded_cache_bytes": 12288,
+      "model_state_plus_decoded_cache_bytes": 13512,
+      "model_unique_state_tensor_bytes": 1224,
+      "non_vq_state_tensor_bytes": 0,
+      "vq_layers": 1,
+      "vq_storage_bytes_including_bias": 1224
+    }
+  },
+  "synthetic_matrix": {
+    "dtype": "float32",
+    "initialization": "torch.randn seed 20261104, multiplied by 0.1",
+    "original_bytes": 12288,
+    "shape": [
+      32,
+      96
+    ]
+  }
+}

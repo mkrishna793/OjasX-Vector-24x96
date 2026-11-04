@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.dylib
+*.dll
+*.o
+.pytest_cache/
+.prime-kernel/
+.prime-research/
+build/
+dist/
+*.egg-info/
+.DS_Store

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-04T10:38:23.870529+00:00",
+  "status": "passed",
+  "torch_version": "2.15.0+cu132",
+  "packing_roundtrips": {
+    "1": true,
+    "2": true,
+    "4": true,
+    "8": true
+  },
+  "low_entropy_matrix": {
+    "shape": [
+      64,
+      64
+    ],
+    "original_bytes": 16384,
+    "selected": true,
+    "reason": "admitted",
+    "stage_relative_errors": [
+      9.680702162670459e-08
+    ],
+    "relative_error": 9.798650079405508e-08,
+    "selected_stages": 1,
+    "nominal_bits_per_weight": 0.5,
+    "measured_bits_per_weight": 2.0,
+    "storage_bytes": 1024,
+    "seed": 71
+  },
+  "scope": "Synthetic low-entropy matrix only; demonstrates measured codec compression/error, not HF model quality or hardware speed"
+}

@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ojasx-24x96"
+version = "0.1.0"
+description = "OjasX-24X96: Generalized Multi-Stage Residual & 24D Leech Lattice Vector Quantization Local Inference Engine"
+readme = "ojasx_24x96/README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Mohana Krishna" }]
+dependencies = [
+    "torch>=2.4",
+    "safetensors>=0.4.3",
+    "transformers>=4.45",
+    "tokenizers>=0.19",
+    "accelerate>=1.0",
+    "psutil>=5.9",
+    "z3-solver>=4.12",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8.0"]
+
+[project.scripts]
+oqx = "ojasx_24x96.cli:main"
+ojasx-24x96 = "ojasx_24x96.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ojasx_24x96", "ojasx_24x96.*", "ojasx_vector_quantization_runner", "ojasx_vector_quantization_runner.*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-ra"

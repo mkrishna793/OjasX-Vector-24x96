@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-04T11:43:10.906489+00:00",
+  "status": "passed",
+  "z3_version": "5.3.3",
+  "proofs": [
+    {
+      "name": "vq_pack_roundtrip_1_bit",
+      "preconditions": "sat",
+      "counterexample_query": "unsat",
+      "verified": true,
+      "scope": "Exact integer little-endian packing for bounded unsigned codes; not floating-point quality"
+    },
+    {
+      "name": "vq_pack_roundtrip_2_bit",
+      "preconditions": "sat",
+      "counterexample_query": "unsat",
+      "verified": true,
+      "scope": "Exact integer little-endian packing for bounded unsigned codes; not floating-point quality"
+    },
+    {
+      "name": "vq_pack_roundtrip_4_bit",
+      "preconditions": "sat",
+      "counterexample_query": "unsat",
+      "verified": true,
+      "scope": "Exact integer little-endian packing for bounded unsigned codes; not floating-point quality"
+    },
+    {
+      "name": "vq_multistage_residual_reconstruction",
+      "preconditions": "sat",
+      "counterexample_query": "unsat",
+      "verified": true,
+      "scope": "Exact-real four-stage residual algebra for one vector; extends by induction"
+    },
+    {
+      "name": "vq_nonzero_row_scale_roundtrip",
+      "preconditions": "sat",
+      "counterexample_query": "unsat",
+      "verified": true,
+      "scope": "Exact-real nonzero row normalization; zero rows are handled separately by exact zero scales"
+    },
+    {
+      "name": "vq_zero_anchor_nonexpanding_residual",
+      "preconditions": "sat",
+      "counterexample_query": "unsat",
+      "verified": true,
+      "scope": "Exact-real zero-anchor guard and exact-zero special case; no statistical accuracy claim"
+    },
+    {
+      "name": "vq_padding_bounds",
+      "preconditions": "sat",
+      "counterexample_query": "unsat",
+      "verified": true,
+      "scope": "Exact integer padded-column bounds used by vector reshape and truncation"
+    },
+    {
+      "name": "vq_error_budget_admission",
+      "preconditions": "sat",
+      "counterexample_query": "unsat",
+      "verified": true,
+      "scope": "A candidate admitted by the explicit error predicate cannot exceed its budget"
+    },
+    {
+      "name": "vq_compression_ratio_guard",
+      "preconditions": "sat",
+      "counterexample_query": "unsat",
+      "verified": true,
+      "scope": "Measured byte-ratio algebra; excludes codebook-unaware nominal-bit claims"
+    }
+  ],
+  "counterexamples": [
+    {
+      "name": "vq_out_of_range_code_roundtrip_refuted",
+      "status": "sat",
+      "refutation_verified": true,
+      "model": "[vq_invalid_code = 16]",
+      "scope": "A four-bit code outside 0..15 cannot roundtrip"
+    },
+    {
+      "name": "vq_unanchored_residual_can_expand",
+      "status": "sat",
+      "refutation_verified": true,
+      "model": "[vq_unanchored_q = 1, vq_unanchored_r = 0]",
+      "scope": "Justifies the permanent zero-codeword guard; no monotonicity claim without it"
+    },
+    {
+      "name": "vq_compression_does_not_imply_accuracy",
+      "status": "sat",
+      "refutation_verified": true,
+      "model": "[vq_ce_stored = 1,\n vq_ce_budget = 0,\n vq_ce_original = 2,\n vq_ce_error = 1]",
+      "scope": "Smaller storage and an excessive reconstruction error can coexist"
+    },
+    {
+      "name": "vq_nominal_rate_ignores_codebook_overhead",
+      "status": "sat",
+      "refutation_verified": true,
+      "model": "[vq_measured_bits = 2, vq_nominal_bits = 1]",
+      "scope": "Nominal payload bits can coexist with larger measured total bits"
+    }
+  ],
+  "scope": "Exact integer/real codec algebra only; not IEEE kernels, statistical rate-distortion, HF architecture coverage, model quality, or hardware speed"
+}

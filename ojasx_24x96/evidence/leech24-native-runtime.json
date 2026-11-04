@@ -1,0 +1,573 @@
+{
+  "artifact": "/home/user/.cache/leech24-qualification/native-run/encoded",
+  "comparison": {
+    "native_cpp_table_bytes": 21628,
+    "native_memory_decode_speedup_vs_python": 3.7998709257249144,
+    "native_memory_decode_time_ratio_to_dense": 1.4495579252523685,
+    "native_memory_decoded_cache_bytes": 0,
+    "native_memory_initialized_python_table_bytes": 0,
+    "native_minus_python_sampled_rss_bytes": {
+      "decode_without_kv_cache": -491520,
+      "load": 479232,
+      "prefill": 151552
+    },
+    "native_speed_decode_time_ratio_to_dense": 1.0381045625839997,
+    "native_speed_decoded_cache_bytes": 184320,
+    "python_memory_decode_time_ratio_to_dense": 5.508133015320603,
+    "python_memory_initialized_table_bytes": 207136
+  },
+  "correctness": {
+    "all_quantized_worker_generated_token_ids_match": true,
+    "fresh_memory_prefill_logits_sha256": "969997b2ec3589bcfdfebf3497045e889231332946d56bdf637476fcba7d49e6",
+    "fresh_speed_prefill_logits_sha256": "969997b2ec3589bcfdfebf3497045e889231332946d56bdf637476fcba7d49e6",
+    "generated_token_ids": [
+      111,
+      110,
+      103,
+      32
+    ],
+    "python_native_memory_prefill_bitwise_equal": true,
+    "python_native_speed_prefill_bitwise_equal": true
+  },
+  "environment": {
+    "cpu_threads": 1,
+    "torch": "2.15.0+cu132"
+  },
+  "generated_at": "2026-11-04T11:42:29.221400+00:00",
+  "model_shard_sha256": "1a3e9d5e7210cd44cb5dbea266ddb488b8d5034658b3c0161fe9bd94dfcc3aa9",
+  "native_backend": {
+    "available": true,
+    "build_flags": [
+      "-O3",
+      "-std=c++17",
+      "-fPIC",
+      "-shared",
+      "-ffp-contract=off",
+      "-fno-fast-math"
+    ],
+    "build_identity_sha256": "157e0c0ddb064b6b754026afc2fb5c2beef7bd5d2d33d108565e58e15f5e88b6",
+    "compiler_version": "g++ (Debian 12.2.0-14+deb12u1) 12.2.0",
+    "library_path": "/home/user/.cache/ojasx-leech24-native/libleech24-157e0c0ddb064b6b.so",
+    "native_table_bytes": 21628,
+    "reason": "loaded",
+    "source_sha256": "8ef9963aed85e28d5a7f7ea30e0114d0562be473c63f869460c913b88a8f4f37"
+  },
+  "runtime_workers": [
+    {
+      "artifact": "/home/user/.cache/leech24-qualification/native-run/source-bf16",
+      "decode_without_kv_cache": {
+        "generated_token_ids": [
+          111,
+          110,
+          103,
+          32
+        ],
+        "median_seconds_per_recomputed_token": 0.018843872000047668,
+        "process_peak_rss_bytes": 727838720,
+        "sampled_phase_peak_rss_bytes": 727838720,
+        "tokens": 4
+      },
+      "initialized_python_shared_table_bytes": 0,
+      "leech_decode_backend": "python",
+      "leech_layers": 0,
+      "load": {
+        "process_peak_rss_bytes": 712892416,
+        "sampled_phase_peak_rss_bytes": 712892416,
+        "seconds": 1.162847938999903
+      },
+      "mode": "dense",
+      "native_backend": null,
+      "persistent_storage_after_run": {
+        "combined_vq_bytes": 0,
+        "decoded_cache_bytes": 0,
+        "model_state_plus_decoded_cache_bytes": 2013952,
+        "model_unique_state_tensor_bytes": 2013952,
+        "non_vq_state_tensor_bytes": 2013952,
+        "vq_layers": 0,
+        "vq_storage_bytes_including_bias": 0
+      },
+      "prefill": {
+        "cold_seconds": 0.02647569000009753,
+        "logits_sha256": "7776273a638e1e4e8632546afb61df5f63170ffe2c7ae10590e66590f0baefff",
+        "process_peak_rss_bytes": 725000192,
+        "sampled_phase_peak_rss_bytes": 725000192,
+        "warm_median_seconds": 0.015579656999875624
+      },
+      "profile": "memory",
+      "scope": "Fresh CPython process; sampled phase RSS plus ru_maxrss. Four greedy tokens recompute the context without KV caching. Not a throughput benchmark.",
+      "source_dense_checkpoint_passed_to_worker": true
+    },
+    {
+      "artifact": "/home/user/.cache/leech24-qualification/native-run/encoded",
+      "decode_without_kv_cache": {
+        "generated_token_ids": [
+          111,
+          110,
+          103,
+          32
+        ],
+        "median_seconds_per_recomputed_token": 0.10379455349993805,
+        "process_peak_rss_bytes": 730882048,
+        "sampled_phase_peak_rss_bytes": 730882048,
+        "tokens": 4
+      },
+      "initialized_python_shared_table_bytes": 207136,
+      "leech_decode_backend": "python",
+      "leech_layers": 2,
+      "load": {
+        "process_peak_rss_bytes": 713011200,
+        "sampled_phase_peak_rss_bytes": 713011200,
+        "seconds": 1.129087606999974
+      },
+      "mode": "quantized",
+      "native_backend": null,
+      "persistent_storage_after_run": {
+        "combined_vq_bytes": 32295,
+        "decoded_cache_bytes": 0,
+        "model_state_plus_decoded_cache_bytes": 1861927,
+        "model_unique_state_tensor_bytes": 1861927,
+        "non_vq_state_tensor_bytes": 1829632,
+        "vq_layers": 2,
+        "vq_storage_bytes_including_bias": 32295
+      },
+      "prefill": {
+        "cold_seconds": 0.12251441599983082,
+        "logits_sha256": "969997b2ec3589bcfdfebf3497045e889231332946d56bdf637476fcba7d49e6",
+        "process_peak_rss_bytes": 727564288,
+        "sampled_phase_peak_rss_bytes": 727564288,
+        "warm_median_seconds": 0.09681375249999746
+      },
+      "profile": "memory",
+      "scope": "Fresh CPython process; sampled phase RSS plus ru_maxrss. Four greedy tokens recompute the context without KV caching. Not a throughput benchmark.",
+      "source_dense_checkpoint_passed_to_worker": false
+    },
+    {
+      "artifact": "/home/user/.cache/leech24-qualification/native-run/encoded",
+      "decode_without_kv_cache": {
+        "generated_token_ids": [
+          111,
+          110,
+          103,
+          32
+        ],
+        "median_seconds_per_recomputed_token": 0.027315284000110296,
+        "process_peak_rss_bytes": 730390528,
+        "sampled_phase_peak_rss_bytes": 730390528,
+        "tokens": 4
+      },
+      "initialized_python_shared_table_bytes": 0,
+      "leech_decode_backend": "native",
+      "leech_layers": 2,
+      "load": {
+        "process_peak_rss_bytes": 713490432,
+        "sampled_phase_peak_rss_bytes": 713490432,
+        "seconds": 1.1629808239999875
+      },
+      "mode": "quantized",
+      "native_backend": {
+        "available": true,
+        "build_flags": [
+          "-O3",
+          "-std=c++17",
+          "-fPIC",
+          "-shared",
+          "-ffp-contract=off",
+          "-fno-fast-math"
+        ],
+        "build_identity_sha256": "157e0c0ddb064b6b754026afc2fb5c2beef7bd5d2d33d108565e58e15f5e88b6",
+        "compiler_version": "g++ (Debian 12.2.0-14+deb12u1) 12.2.0",
+        "library_path": "/home/user/.cache/ojasx-leech24-native/libleech24-157e0c0ddb064b6b.so",
+        "native_table_bytes": 21628,
+        "reason": "loaded",
+        "source_sha256": "8ef9963aed85e28d5a7f7ea30e0114d0562be473c63f869460c913b88a8f4f37"
+      },
+      "persistent_storage_after_run": {
+        "combined_vq_bytes": 32295,
+        "decoded_cache_bytes": 0,
+        "model_state_plus_decoded_cache_bytes": 1861927,
+        "model_unique_state_tensor_bytes": 1861927,
+        "non_vq_state_tensor_bytes": 1829632,
+        "vq_layers": 2,
+        "vq_storage_bytes_including_bias": 32295
+      },
+      "prefill": {
+        "cold_seconds": 0.03730675099996006,
+        "logits_sha256": "969997b2ec3589bcfdfebf3497045e889231332946d56bdf637476fcba7d49e6",
+        "process_peak_rss_bytes": 727715840,
+        "sampled_phase_peak_rss_bytes": 727715840,
+        "warm_median_seconds": 0.02304129199990257
+      },
+      "profile": "memory",
+      "scope": "Fresh CPython process; sampled phase RSS plus ru_maxrss. Four greedy tokens recompute the context without KV caching. Not a throughput benchmark.",
+      "source_dense_checkpoint_passed_to_worker": false
+    },
+    {
+      "artifact": "/home/user/.cache/leech24-qualification/native-run/encoded",
+      "decode_without_kv_cache": {
+        "generated_token_ids": [
+          111,
+          110,
+          103,
+          32
+        ],
+        "median_seconds_per_recomputed_token": 0.018497414000080425,
+        "process_peak_rss_bytes": 730505216,
+        "sampled_phase_peak_rss_bytes": 730505216,
+        "tokens": 4
+      },
+      "initialized_python_shared_table_bytes": 207136,
+      "leech_decode_backend": "python",
+      "leech_layers": 2,
+      "load": {
+        "process_peak_rss_bytes": 713175040,
+        "sampled_phase_peak_rss_bytes": 713175040,
+        "seconds": 1.1041405480000321
+      },
+      "mode": "quantized",
+      "native_backend": null,
+      "persistent_storage_after_run": {
+        "combined_vq_bytes": 216615,
+        "decoded_cache_bytes": 184320,
+        "model_state_plus_decoded_cache_bytes": 2046247,
+        "model_unique_state_tensor_bytes": 1861927,
+        "non_vq_state_tensor_bytes": 1829632,
+        "vq_layers": 2,
+        "vq_storage_bytes_including_bias": 32295
+      },
+      "prefill": {
+        "cold_seconds": 0.04427829799988103,
+        "logits_sha256": "969997b2ec3589bcfdfebf3497045e889231332946d56bdf637476fcba7d49e6",
+        "process_peak_rss_bytes": 726732800,
+        "sampled_phase_peak_rss_bytes": 726732800,
+        "warm_median_seconds": 0.015150269499940805
+      },
+      "profile": "speed",
+      "scope": "Fresh CPython process; sampled phase RSS plus ru_maxrss. Four greedy tokens recompute the context without KV caching. Not a throughput benchmark.",
+      "source_dense_checkpoint_passed_to_worker": false
+    },
+    {
+      "artifact": "/home/user/.cache/leech24-qualification/native-run/encoded",
+      "decode_without_kv_cache": {
+        "generated_token_ids": [
+          111,
+          110,
+          103,
+          32
+        ],
+        "median_seconds_per_recomputed_token": 0.019561909499998364,
+        "process_peak_rss_bytes": 729169920,
+        "sampled_phase_peak_rss_bytes": 729169920,
+        "tokens": 4
+      },
+      "initialized_python_shared_table_bytes": 0,
+      "leech_decode_backend": "native",
+      "leech_layers": 2,
+      "load": {
+        "process_peak_rss_bytes": 713097216,
+        "sampled_phase_peak_rss_bytes": 713097216,
+        "seconds": 1.1129703310000423
+      },
+      "mode": "quantized",
+      "native_backend": {
+        "available": true,
+        "build_flags": [
+          "-O3",
+          "-std=c++17",
+          "-fPIC",
+          "-shared",
+          "-ffp-contract=off",
+          "-fno-fast-math"
+        ],
+        "build_identity_sha256": "157e0c0ddb064b6b754026afc2fb5c2beef7bd5d2d33d108565e58e15f5e88b6",
+        "compiler_version": "g++ (Debian 12.2.0-14+deb12u1) 12.2.0",
+        "library_path": "/home/user/.cache/ojasx-leech24-native/libleech24-157e0c0ddb064b6b.so",
+        "native_table_bytes": 21628,
+        "reason": "loaded",
+        "source_sha256": "8ef9963aed85e28d5a7f7ea30e0114d0562be473c63f869460c913b88a8f4f37"
+      },
+      "persistent_storage_after_run": {
+        "combined_vq_bytes": 216615,
+        "decoded_cache_bytes": 184320,
+        "model_state_plus_decoded_cache_bytes": 2046247,
+        "model_unique_state_tensor_bytes": 1861927,
+        "non_vq_state_tensor_bytes": 1829632,
+        "vq_layers": 2,
+        "vq_storage_bytes_including_bias": 32295
+      },
+      "prefill": {
+        "cold_seconds": 0.031788034000101106,
+        "logits_sha256": "969997b2ec3589bcfdfebf3497045e889231332946d56bdf637476fcba7d49e6",
+        "process_peak_rss_bytes": 725635072,
+        "sampled_phase_peak_rss_bytes": 725635072,
+        "warm_median_seconds": 0.015970472999924823
+      },
+      "profile": "speed",
+      "scope": "Fresh CPython process; sampled phase RSS plus ru_maxrss. Four greedy tokens recompute the context without KV caching. Not a throughput benchmark.",
+      "source_dense_checkpoint_passed_to_worker": false
+    }
+  ],
+  "same_process_profile": {
+    "bitwise_python_native_logits_equal": true,
+    "function_profiles": {
+      "native": {
+        "functions": [
+          {
+            "calls": 3,
+            "cumulative_seconds": 0.072021574,
+            "file": "leech24_qualify.py",
+            "line": 183,
+            "name": "forward",
+            "self_seconds": 0.00014131900000000002
+          },
+          {
+            "calls": 15,
+            "cumulative_seconds": 0.070152685,
+            "file": "leech24_qualify.py",
+            "line": 163,
+            "name": "forward",
+            "self_seconds": 0.000540126
+          },
+          {
+            "calls": 15,
+            "cumulative_seconds": 0.036453389,
+            "file": "leech24_qualify.py",
+            "line": 126,
+            "name": "forward",
+            "self_seconds": 0.00034450100000000004
+          },
+          {
+            "calls": 72,
+            "cumulative_seconds": 0.030594357000000003,
+            "file": "linear.py",
+            "line": 130,
+            "name": "forward",
+            "self_seconds": 0.00018849800000000002
+          },
+          {
+            "calls": 15,
+            "cumulative_seconds": 0.030316438,
+            "file": "leech24_qualify.py",
+            "line": 151,
+            "name": "forward",
+            "self_seconds": 0.0005090180000000001
+          },
+          {
+            "calls": 6,
+            "cumulative_seconds": 0.026977665,
+            "file": "module.py",
+            "line": 444,
+            "name": "forward",
+            "self_seconds": 0.001022708
+          },
+          {
+            "calls": 96,
+            "cumulative_seconds": 0.018413438,
+            "file": "leech_codec.py",
+            "line": 575,
+            "name": "dequantize_leech_weight_rows",
+            "self_seconds": 0.0008229890000000001
+          },
+          {
+            "calls": 96,
+            "cumulative_seconds": 0.017035074,
+            "file": "leech_native.py",
+            "line": 167,
+            "name": "decode_leech_rows_native",
+            "self_seconds": 0.007513840000000001
+          },
+          {
+            "calls": 96,
+            "cumulative_seconds": 0.006220572000000001,
+            "file": "leech24.py",
+            "line": 479,
+            "name": "apply_rotation",
+            "self_seconds": 0.002976331
+          },
+          {
+            "calls": 33,
+            "cumulative_seconds": 0.0026528990000000002,
+            "file": "leech24_qualify.py",
+            "line": 98,
+            "name": "forward",
+            "self_seconds": 0.000765357
+          },
+          {
+            "calls": 6,
+            "cumulative_seconds": 0.001022684,
+            "file": "module.py",
+            "line": 279,
+            "name": "encoded",
+            "self_seconds": 8.9925e-05
+          },
+          {
+            "calls": 3,
+            "cumulative_seconds": 0.000103941,
+            "file": "sparse.py",
+            "line": 188,
+            "name": "forward",
+            "self_seconds": 1.2397e-05
+          },
+          {
+            "calls": 3,
+            "cumulative_seconds": 7.055700000000001e-05,
+            "file": "dropout.py",
+            "line": 69,
+            "name": "forward",
+            "self_seconds": 6.265e-06
+          }
+        ],
+        "profiled_forwards": 3,
+        "total_self_seconds": 0.07205140900000001
+      },
+      "python": {
+        "functions": [
+          {
+            "calls": 3,
+            "cumulative_seconds": 0.310524723,
+            "file": "leech24_qualify.py",
+            "line": 183,
+            "name": "forward",
+            "self_seconds": 0.00014145500000000002
+          },
+          {
+            "calls": 15,
+            "cumulative_seconds": 0.308771733,
+            "file": "leech24_qualify.py",
+            "line": 163,
+            "name": "forward",
+            "self_seconds": 0.0005044040000000001
+          },
+          {
+            "calls": 6,
+            "cumulative_seconds": 0.26618387400000004,
+            "file": "module.py",
+            "line": 444,
+            "name": "forward",
+            "self_seconds": 0.0013753180000000002
+          },
+          {
+            "calls": 96,
+            "cumulative_seconds": 0.254016151,
+            "file": "leech_codec.py",
+            "line": 575,
+            "name": "dequantize_leech_weight_rows",
+            "self_seconds": 0.00165378
+          },
+          {
+            "calls": 96,
+            "cumulative_seconds": 0.25167167900000004,
+            "file": "leech_codec.py",
+            "line": 546,
+            "name": "_decode_rotated_vectors",
+            "self_seconds": 0.008429651
+          },
+          {
+            "calls": 15,
+            "cumulative_seconds": 0.214685801,
+            "file": "leech24_qualify.py",
+            "line": 126,
+            "name": "forward",
+            "self_seconds": 0.000350279
+          },
+          {
+            "calls": 288,
+            "cumulative_seconds": 0.129459221,
+            "file": "leech24.py",
+            "line": 217,
+            "name": "decode_indices",
+            "self_seconds": 0.074763534
+          },
+          {
+            "calls": 15,
+            "cumulative_seconds": 0.090832353,
+            "file": "leech24_qualify.py",
+            "line": 151,
+            "name": "forward",
+            "self_seconds": 0.00046174700000000004
+          },
+          {
+            "calls": 72,
+            "cumulative_seconds": 0.030384677000000002,
+            "file": "linear.py",
+            "line": 130,
+            "name": "forward",
+            "self_seconds": 0.000169387
+          },
+          {
+            "calls": 96,
+            "cumulative_seconds": 0.007042545000000001,
+            "file": "leech24.py",
+            "line": 479,
+            "name": "apply_rotation",
+            "self_seconds": 0.0032424700000000003
+          },
+          {
+            "calls": 33,
+            "cumulative_seconds": 0.0025703970000000003,
+            "file": "leech24_qualify.py",
+            "line": 98,
+            "name": "forward",
+            "self_seconds": 0.000715592
+          },
+          {
+            "calls": 6,
+            "cumulative_seconds": 0.001063271,
+            "file": "module.py",
+            "line": 279,
+            "name": "encoded",
+            "self_seconds": 0.00010113
+          },
+          {
+            "calls": 3,
+            "cumulative_seconds": 0.00010504000000000001,
+            "file": "sparse.py",
+            "line": 188,
+            "name": "forward",
+            "self_seconds": 1.6141e-05
+          },
+          {
+            "calls": 3,
+            "cumulative_seconds": 4.7385e-05,
+            "file": "dropout.py",
+            "line": 69,
+            "name": "forward",
+            "self_seconds": 7.564000000000001e-06
+          }
+        ],
+        "profiled_forwards": 3,
+        "total_self_seconds": 0.3105873810000001
+      }
+    },
+    "logits_sha256": "b995f89beb2bbeb3263c27d2673b1a3569ca17f0c2fd51172cf16df5b8521e17",
+    "same_process_speedup": 4.078525099934827,
+    "same_process_timings": {
+      "native": {
+        "iterations": 10,
+        "logits_sha256": "b995f89beb2bbeb3263c27d2673b1a3569ca17f0c2fd51172cf16df5b8521e17",
+        "max_seconds": 0.023568565000005037,
+        "median_seconds": 0.021329065500026445,
+        "min_seconds": 0.021082213999989108
+      },
+      "python": {
+        "iterations": 10,
+        "logits_sha256": "b995f89beb2bbeb3263c27d2673b1a3569ca17f0c2fd51172cf16df5b8521e17",
+        "max_seconds": 0.09125326200000927,
+        "median_seconds": 0.08699112900001182,
+        "min_seconds": 0.08452962399996977
+      }
+    },
+    "scope": "Same-process timings isolate backend changes but share allocated tables and allocator state. Fresh workers below are the RSS evidence.",
+    "storage_after_native_memory_run": {
+      "combined_vq_bytes": 32295,
+      "decoded_cache_bytes": 0,
+      "model_state_plus_decoded_cache_bytes": 1861927,
+      "model_unique_state_tensor_bytes": 1861927,
+      "non_vq_state_tensor_bytes": 1829632,
+      "vq_layers": 2,
+      "vq_storage_bytes_including_bias": 32295
+    }
+  },
+  "schema_version": 1,
+  "scope": "One fixed BF16 TinyGPT artifact on one CPU, five fresh processes, and four recomputed tokens without KV caching. Native results do not establish CUDA support, throughput, larger-model RAM savings, or dense-model quality.",
+  "status": "passed"
+}

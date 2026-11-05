@@ -146,6 +146,37 @@ from .structured_tools import (
     generate_structured_json,
     validate_json_schema,
 )
+from .math_engine import (
+    SmoothChannelConditioner,
+    SmoothChannelProfile,
+    compression_aware_linear_forward,
+    dual_folded_leech_gemm,
+    subspace_lut_rvq_gemm,
+)
+from .compression_engine import (
+    UniversalCompressionConfig,
+    UniversalCompressionEngine,
+    UniversalCompressionResult,
+    select_codec_for_tensor,
+)
+from .tilelang_backend import (
+    HAS_TILELANG,
+    HardwareTileSchedule,
+    SUPPORTED_HARDWARE_TARGETS,
+    TileLangHardwareAutoTuner,
+    dispatch_universal_compressed_gemm,
+)
+from .long_context import (
+    BlockAttentionReport,
+    OnlineSoftmaxBlockAttention,
+    PagedCompressedKVCache,
+    UltraLongContextStreamer,
+)
+from .inference_engine import (
+    ForwardGraphAuditReport,
+    LayerExecutionTrace,
+    UniversalInferenceEngine,
+)
 
 __all__ = [
     "AdmissionError",
@@ -266,6 +297,27 @@ __all__ = [
     "unregister_custom_module_adapter",
     "validate_json_schema",
     "verify_oqpack_integrity",
+    "SmoothChannelConditioner",
+    "SmoothChannelProfile",
+    "compression_aware_linear_forward",
+    "dual_folded_leech_gemm",
+    "subspace_lut_rvq_gemm",
+    "UniversalCompressionConfig",
+    "UniversalCompressionEngine",
+    "UniversalCompressionResult",
+    "select_codec_for_tensor",
+    "HAS_TILELANG",
+    "HardwareTileSchedule",
+    "SUPPORTED_HARDWARE_TARGETS",
+    "TileLangHardwareAutoTuner",
+    "dispatch_universal_compressed_gemm",
+    "BlockAttentionReport",
+    "OnlineSoftmaxBlockAttention",
+    "PagedCompressedKVCache",
+    "UltraLongContextStreamer",
+    "ForwardGraphAuditReport",
+    "LayerExecutionTrace",
+    "UniversalInferenceEngine",
 ]
 
-__version__ = "0.8.0"
+__version__ = "0.9.0"

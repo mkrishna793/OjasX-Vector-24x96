@@ -23,7 +23,7 @@ import torch.nn as nn
 
 from .codec import QuantizationConfig, quantize_weight
 from .leech_codec import LeechQuantizationConfig, quantize_leech_weight
-from .module import ResidualVQLinear
+from .module import ResidualVQFusedExperts, ResidualVQLinear, _expert_activation, _expert_gate_limit, _infer_fused_expert_dims
 
 
 class CheckpointIngestionError(ValueError):
@@ -233,9 +233,13 @@ def should_quantize_tensor_name(
     *,
     include_globs: Sequence[str] = ("*",),
     exclude_globs: Sequence[str] = ("*embed*", "*lm_head*", "*norm*", "*.bias"),
+    allow_3d_experts: bool = False,
 ) -> bool:
-    """Determines whether a 2D weight tensor should be quantized vs stored as passthrough dense tensor."""
-    if len(shape) != 2:
+    """Determines whether a 2D (or 3D expert) weight tensor should be quantized vs stored as passthrough dense tensor."""
+    if len(shape) == 3 and allow_3d_experts:
+        if not (name.endswith("gate_up_proj") or name.endswith("down_proj")):
+            return False
+    elif len(shape) != 2:
         return False
     if any(fnmatch.fnmatch(name, pat) for pat in exclude_globs):
         return False
@@ -255,6 +259,7 @@ def stream_convert_checkpoint(
     exclude_globs: Sequence[str] = ("*embed*", "*lm_head*", "*norm*", "*.bias"),
     resume: bool = True,
     fail_after_tensors: Optional[int] = None,
+    allow_3d_experts: bool = True,
 ) -> StreamingConversionReport:
     """Streamingly converts a checkpoint tensor-by-tensor with bounded RAM and resumability."""
     if codec not in {"adaptive_residual_vq", "leech24_shell2_residual"}:
@@ -337,11 +342,13 @@ def stream_convert_checkpoint(
         tensor_bytes = tensor.numel() * tensor.element_size()
         peak_single_tensor_bytes = max(peak_single_tensor_bytes, tensor_bytes)
 
+        orig_tensor_shape = tuple(tensor.shape)
         should_q = should_quantize_tensor_name(
             tensor_name,
-            tuple(tensor.shape),
+            orig_tensor_shape,
             include_globs=include_globs,
             exclude_globs=exclude_globs,
+            allow_3d_experts=allow_3d_experts,
         )
 
         safe_name = tensor_name.replace("/", "_")
@@ -358,12 +365,13 @@ def stream_convert_checkpoint(
             tensors_to_save = {tensor_name: tensor}
             stored_bytes = tensor_bytes
         else:
+            q_tensor = tensor.reshape(-1, tensor.shape[-1]) if tensor.ndim == 3 else tensor
             if codec == "adaptive_residual_vq":
                 cfg = vq_config if vq_config is not None else QuantizationConfig()
-                encoded, measurement = quantize_weight(tensor, config=cfg)
+                encoded, measurement = quantize_weight(q_tensor, config=cfg)
             else:
                 cfg = leech_config if leech_config is not None else LeechQuantizationConfig()
-                encoded, measurement = quantize_leech_weight(tensor, config=cfg)
+                encoded, measurement = quantize_leech_weight(q_tensor, config=cfg)
 
             if encoded is None:
                 status = "passthrough"
@@ -380,6 +388,8 @@ def stream_convert_checkpoint(
                 metrics["stages"] = encoded.stages
                 metrics["selected_stages"] = encoded.stages
                 metrics["original_shape"] = list(encoded.original_shape)
+                metrics["logical_shape"] = list(orig_tensor_shape)
+                metrics["is_3d_expert"] = len(orig_tensor_shape) == 3
                 metrics["codec"] = codec
                 stored_bytes = encoded.storage_bytes
 
@@ -500,10 +510,15 @@ def stream_convert_checkpoint(
     for r in records.values():
         if r.status == "quantized":
             prefix = r.name[:-len(".weight")] if r.name.endswith(".weight") else r.name
+            eff_shape = r.metrics.get("original_shape", list(r.original_shape))
+            if len(eff_shape) == 3:
+                eff_shape = [eff_shape[0] * eff_shape[1], eff_shape[2]]
             layers_manifest[prefix] = {
                 "type": "residual_vq_linear",
-                "in_features": r.original_shape[1],
-                "out_features": r.original_shape[0],
+                "in_features": int(eff_shape[1]),
+                "out_features": int(eff_shape[0]),
+                "is_3d_expert": bool(r.metrics.get("is_3d_expert", len(r.original_shape) == 3)),
+                "logical_shape": list(r.metrics.get("logical_shape", r.original_shape)),
                 "bias": False,
                 "block_size": int(
                     r.metrics.get("block_size", 8 if r.codec == "adaptive_residual_vq" else 24)
@@ -658,26 +673,45 @@ def load_streamed_checkpoint_into_model(
     state_data = json.loads(state_file.read_text(encoding="utf-8"))
     records = state_data.get("records", {})
 
-    # 1. Replace quantized layers with ResidualVQLinear
+    # 1. Replace quantized layers with ResidualVQLinear or ResidualVQFusedExperts
+    expert_bank_projections: Dict[str, Dict[str, ResidualVQLinear]] = {}
+
     for r_name, r_info in records.items():
         if r_info.get("status") == "quantized":
             prefix = r_name[:-len(".weight")] if r_name.endswith(".weight") else r_name
-            target_sub = _get_submodule(model, prefix)
-            if target_sub is None:
-                continue
-
             orig_shape = tuple(r_info["original_shape"])
             metrics = r_info.get("metrics", {})
             codec = r_info.get("codec", "adaptive_residual_vq")
+            is_3d_expert = bool(metrics.get("is_3d_expert", len(orig_shape) == 3))
 
-            has_bias = getattr(target_sub, "bias", None) is not None
-            bias_data = target_sub.bias.data.clone() if has_bias else None
-            source_dtype = getattr(target_sub.weight, "dtype", torch.float32)
+            if is_3d_expert:
+                parent_bank_path, proj_attr = prefix.rsplit(".", 1)
+                bank_sub = _get_submodule(model, parent_bank_path)
+                if bank_sub is None:
+                    continue
+                param_obj = getattr(bank_sub, proj_attr, None)
+                source_dtype = getattr(param_obj, "dtype", torch.float32)
+                has_bias = False
+                bias_data = None
+                eff_rows = orig_shape[0] * orig_shape[1] if len(orig_shape) == 3 else orig_shape[0]
+                eff_cols = orig_shape[2] if len(orig_shape) == 3 else orig_shape[1]
+            else:
+                target_sub = _get_submodule(model, prefix)
+                if target_sub is None:
+                    continue
+                has_bias = getattr(target_sub, "bias", None) is not None
+                bias_data = (
+                    target_sub.bias.data.clone()
+                    if (has_bias and target_sub.bias.device.type != "meta")
+                    else None
+                )
+                source_dtype = getattr(getattr(target_sub, "weight", None), "dtype", torch.float32)
+                eff_rows, eff_cols = orig_shape[0], orig_shape[1]
 
             if codec == "adaptive_residual_vq":
                 vq_linear = ResidualVQLinear(
-                    in_features=orig_shape[1],
-                    out_features=orig_shape[0],
+                    in_features=eff_cols,
+                    out_features=eff_rows,
                     bias=has_bias,
                     block_size=int(metrics.get("block_size", 8)),
                     bits_per_stage=int(metrics.get("bits_per_stage", 4)),
@@ -693,8 +727,8 @@ def load_streamed_checkpoint_into_model(
                     else None
                 )
                 vq_linear = ResidualVQLinear(
-                    in_features=orig_shape[1],
-                    out_features=orig_shape[0],
+                    in_features=eff_cols,
+                    out_features=eff_rows,
                     bias=has_bias,
                     block_size=int(metrics.get("block_size", 24)),
                     gain_bits=int(metrics.get("gain_bits", 2)),
@@ -758,7 +792,38 @@ def load_streamed_checkpoint_into_model(
             if has_bias and bias_data is not None:
                 vq_linear.bias.data.copy_(bias_data.to(device=device))
 
-            _set_submodule(model, prefix, vq_linear)
+            if is_3d_expert:
+                parent_bank_path, proj_attr = prefix.rsplit(".", 1)
+                expert_bank_projections.setdefault(parent_bank_path, {})[proj_attr] = vq_linear
+            else:
+                _set_submodule(model, prefix, vq_linear)
+
+    # 1b. Replace any 3D fused expert banks collected from streaming records
+    for bank_path, proj_map in expert_bank_projections.items():
+        bank_sub = _get_submodule(model, bank_path)
+        if bank_sub is None:
+            continue
+        dims = _infer_fused_expert_dims(bank_sub)
+        if dims is None:
+            # Infer from ResidualVQLinear shapes if already partially replaced
+            gu = proj_map.get("gate_up_proj", getattr(bank_sub, "gate_up_proj", None))
+            dn = proj_map.get("down_proj", getattr(bank_sub, "down_proj", None))
+            num_exp = int(getattr(bank_sub, "num_experts", 1))
+            hid = int(getattr(bank_sub, "hidden_dim", getattr(gu, "in_features", 1)))
+            inter = int(getattr(bank_sub, "intermediate_dim", getattr(dn, "in_features", 1)))
+            dims = (num_exp, hid, inter)
+        gate_up_mod = proj_map.get("gate_up_proj", getattr(bank_sub, "gate_up_proj"))
+        down_mod = proj_map.get("down_proj", getattr(bank_sub, "down_proj"))
+        fused_rep = ResidualVQFusedExperts(
+            dims[0],
+            dims[1],
+            dims[2],
+            gate_up_proj=gate_up_mod,
+            down_proj=down_mod,
+            act_fn=_expert_activation(bank_sub),
+            gate_limit=_expert_gate_limit(bank_sub),
+        )
+        _set_submodule(model, bank_path, fused_rep)
 
     # 2. Load passthrough parameters/buffers
     for r_name, r_info in records.items():

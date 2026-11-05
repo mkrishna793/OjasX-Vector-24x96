@@ -163,6 +163,7 @@ class ResidualVQLinear(nn.Module):
         self.decode_row_block_size = 64
         self.leech_decode_backend = "auto"
         self.fused_native_gemm = False
+        self.subspace_lut_mode = False
         self._cached_weight_key: Optional[Tuple[object, ...]] = None
         self.register_buffer("_cached_weight", None, persistent=False)
         blocks_per_row = (in_features + block_size - 1) // block_size
@@ -344,6 +345,9 @@ class ResidualVQLinear(nn.Module):
     def set_fused_native_gemm(self, enabled: bool) -> None:
         self.fused_native_gemm = bool(enabled)
 
+    def set_subspace_lut_mode(self, enabled: bool) -> None:
+        self.subspace_lut_mode = bool(enabled)
+
     def _decode_encoded_rows(
         self,
         encoded,
@@ -450,6 +454,36 @@ class ResidualVQLinear(nn.Module):
             raise ValueError(
                 f"Expected final dimension {self.in_features}, received {inputs.shape[-1]}"
             )
+        if (
+            torch.is_grad_enabled()
+            and not self.weight_cache
+            and (
+                inputs.requires_grad
+                or self.row_scales.requires_grad
+                or (self.bias is not None and self.bias.requires_grad)
+            )
+        ):
+            from .math_engine import _CompressedLinearAutograd
+
+            return _CompressedLinearAutograd.apply(
+                inputs,
+                self.row_scales,
+                self.bias,
+                self.encoded(),
+                self.decode_row_block_size,
+                self.subspace_lut_mode,
+            )
+
+        if self.subspace_lut_mode and not self.weight_cache and self.codec == "adaptive_residual_vq":
+            from .math_engine import subspace_lut_rvq_gemm
+
+            return subspace_lut_rvq_gemm(
+                inputs,
+                self.encoded(),
+                bias=self.bias,
+                row_block_size=self.decode_row_block_size,
+            )
+
         if self.fused_native_gemm and not self.weight_cache and inputs.device.type == "cpu":
             encoded = self.encoded()
             bias = self.bias.to(dtype=torch.float32) if self.bias is not None else None
@@ -703,8 +737,14 @@ def _expert_contract_key(module: nn.Module) -> Tuple[str, str]:
 
 def _expert_gate_limit(module: nn.Module) -> Optional[float]:
     attribute = _FUSED_EXPERT_CONTRACTS.get(_expert_contract_key(module))
-    value = getattr(module, attribute, None) if attribute is not None else None
-    return float(value) if value is not None else None
+    if attribute is not None:
+        value = getattr(module, attribute, None)
+        return float(value) if value is not None else None
+    for cand_attr in ("limit", "swiglu_limit", "gate_limit"):
+        value = getattr(module, cand_attr, None)
+        if isinstance(value, (int, float)) and math.isfinite(value) and value > 0:
+            return float(value)
+    return None
 
 
 def _expert_activation(module: nn.Module) -> nn.Module:
@@ -713,36 +753,51 @@ def _expert_activation(module: nn.Module) -> nn.Module:
     return activation if isinstance(activation, nn.Module) else nn.SiLU()
 
 
-def _is_fused_expert_bank(module: nn.Module) -> bool:
-    # Keep an explicit allowlist: equal attribute names in custom remote code are
-    # not sufficient evidence that replacing its forward method is semantics-safe.
-    key = _expert_contract_key(module)
-    if key not in _FUSED_EXPERT_CONTRACTS:
-        return False
+def _infer_fused_expert_dims(module: nn.Module) -> Optional[Tuple[int, int, int]]:
+    """Structurally infer (num_experts, hidden_dim, intermediate_dim) from any 3D expert bank."""
     gate_up = getattr(module, "gate_up_proj", None)
     down = getattr(module, "down_proj", None)
     if not isinstance(gate_up, torch.Tensor) or not isinstance(down, torch.Tensor):
+        return None
+    if gate_up.ndim != 3 or down.ndim != 3 or gate_up.shape[0] != down.shape[0]:
+        return None
+    experts = int(gate_up.shape[0])
+    if experts <= 0:
+        return None
+    hidden_dim = int(getattr(module, "hidden_dim", getattr(module, "hidden_size", down.shape[1])))
+    intermediate_dim = int(
+        getattr(
+            module,
+            "intermediate_dim",
+            getattr(module, "moe_intermediate_size", getattr(module, "intermediate_size", down.shape[2])),
+        )
+    )
+    if (
+        gate_up.shape[2] == hidden_dim
+        and down.shape[1] == hidden_dim
+        and gate_up.shape[1] == 2 * intermediate_dim
+        and down.shape[2] == intermediate_dim
+    ):
+        return experts, hidden_dim, intermediate_dim
+    return None
+
+
+def _is_fused_expert_bank(module: nn.Module) -> bool:
+    dims = _infer_fused_expert_dims(module)
+    if dims is None:
         return False
-    experts = int(getattr(module, "num_experts", 0))
+    key = _expert_contract_key(module)
     gate_limit = _expert_gate_limit(module)
-    return (
-        experts > 0
-        and gate_up.ndim == 3
-        and down.ndim == 3
-        and gate_up.shape[0] == down.shape[0] == experts
-        and gate_up.shape[2] == int(getattr(module, "hidden_dim", -1))
-        and down.shape[1] == gate_up.shape[2]
-        and gate_up.shape[1] == 2 * int(getattr(module, "intermediate_dim", -2))
-        and down.shape[2] == int(getattr(module, "intermediate_dim", -1))
-        and (
+    if key in _FUSED_EXPERT_CONTRACTS:
+        return (
             isinstance(getattr(module, "act_fn", None), nn.Module)
             or key[1] == "Glm5NextTextExperts"
-        )
-        and (
+        ) and (
             _FUSED_EXPERT_CONTRACTS[key] is None
             or (gate_limit is not None and math.isfinite(gate_limit) and gate_limit > 0)
         )
-    )
+    # Universal structural duck-typing for any 3D expert bank with matching [E, 2*I, H] & [E, H, I] shapes
+    return gate_limit is None or (math.isfinite(gate_limit) and gate_limit > 0)
 
 
 def _layer_kind(module: nn.Module) -> Optional[str]:
@@ -875,10 +930,12 @@ def _quantize_fused_experts(
             device=parameter.device,
         )
 
+    dims = _infer_fused_expert_dims(child)
+    assert dims is not None
     replacement = ResidualVQFusedExperts(
-        int(child.num_experts),
-        int(child.hidden_dim),
-        int(child.intermediate_dim),
+        dims[0],
+        dims[1],
+        dims[2],
         gate_up_proj=projection("gate_up_proj"),
         down_proj=projection("down_proj"),
         act_fn=_expert_activation(child),
@@ -1126,11 +1183,8 @@ def restore_vq_modules(model: nn.Module, manifest: Dict[str, object]) -> nn.Modu
                 int(specification["hidden_dim"]),
                 int(specification["intermediate_dim"]),
             )
-            if dimensions != (
-                int(source.num_experts),
-                int(source.hidden_dim),
-                int(source.intermediate_dim),
-            ):
+            source_dims = _infer_fused_expert_dims(source)
+            if dimensions != source_dims:
                 raise ValueError(f"Expert-bank shape mismatch for {name!r}")
             source_gate_limit = _expert_gate_limit(source)
             manifest_gate_limit = specification.get("gate_limit")
@@ -1148,16 +1202,16 @@ def restore_vq_modules(model: nn.Module, manifest: Dict[str, object]) -> nn.Modu
                 if projection_type != "residual_vq_linear" or projection_spec.get("bias"):
                     raise ValueError(f"Invalid encoded expert projection for {name}.{attribute}")
                 rows_per_expert = (
-                    2 * int(source.intermediate_dim)
+                    2 * dimensions[2]
                     if attribute == "gate_up_proj"
-                    else int(source.hidden_dim)
+                    else dimensions[1]
                 )
                 columns = (
-                    int(source.hidden_dim)
+                    dimensions[1]
                     if attribute == "gate_up_proj"
-                    else int(source.intermediate_dim)
+                    else dimensions[2]
                 )
-                expected = (int(source.num_experts) * rows_per_expert, columns)
+                expected = (dimensions[0] * rows_per_expert, columns)
                 actual = (
                     int(projection_spec["out_features"]),
                     int(projection_spec["in_features"]),

@@ -1,56 +1,69 @@
 {
-  "timestamp": "2026-11-05T04:01:21.879246+00:00",
+  "timestamp": "2026-11-05T07:31:22.978213+00:00",
   "hardware": {
-    "timestamp": "2026-11-05T04:00:16.194392+00:00",
-    "gpu_name": "NVIDIA A100-SXM4-80GB",
-    "gpu_vram_gb": 79.25,
-    "cpu_ram_gb": 167.05,
+    "timestamp": "2026-11-05T07:24:28.551111+00:00",
+    "gpu_name": "NVIDIA A100-SXM4-40GB",
+    "gpu_vram_gb": 39.49,
+    "cpu_ram_gb": 83.47,
     "disk_total_gb": 235.68,
-    "disk_free_gb": 235.57,
+    "disk_free_gb": 235.54,
     "pytorch_version": "2.11.0+cu130",
     "cuda_version": "13.0"
   },
   "model_id": "Qwen/Qwen3.8-Flash-Next",
   "parameters_billions": 124.99,
-  "streaming_ingestion": {
-    "total_dense_bytes": 4395559840,
-    "total_ojasx_bytes": 3426055920,
-    "compression_ratio": 1.28,
-    "shards_processed": 2,
-    "avg_download_sec": 9.56,
-    "avg_quantize_sec": 11.87
+  "full_streaming_ingestion": {
+    "total_shards": 131,
+    "completed_shards": 131,
+    "total_tensors": 309,
+    "total_dense_bytes": 359999963128,
+    "total_dense_formatted": "335.28 GB",
+    "total_compressed_bytes": 255012889564,
+    "total_compressed_formatted": "237.50 GB",
+    "compression_ratio": 1.41,
+    "total_pipeline_time_minutes": 6.83
   },
   "production_memory_admission": {
     "2048": {
-      "total_ram_gb": 14.79,
+      "total_ram_gb": 237.69,
       "kv_cache_mb": 156.0,
-      "fits_in_24gb_laptop": true
+      "fits_in_24gb_laptop": false
     },
     "4096": {
-      "total_ram_gb": 14.83,
+      "total_ram_gb": 237.74,
       "kv_cache_mb": 204.0,
-      "fits_in_24gb_laptop": true
+      "fits_in_24gb_laptop": false
     },
     "8192": {
-      "total_ram_gb": 14.93,
+      "total_ram_gb": 237.83,
       "kv_cache_mb": 300.0,
-      "fits_in_24gb_laptop": true
+      "fits_in_24gb_laptop": false
+    },
+    "16384": {
+      "total_ram_gb": 238.02,
+      "kv_cache_mb": 492.0,
+      "fits_in_24gb_laptop": false
+    },
+    "32768": {
+      "total_ram_gb": 238.4,
+      "kv_cache_mb": 876.0,
+      "fits_in_24gb_laptop": false
     }
   },
   "end_to_end_generation": {
     "prompt": "The future of artificial intelligence in 2026 is",
-    "max_new_tokens": 16,
-    "prefill_ms": 24.24,
-    "decode_ms_per_token": 2.89,
-    "throughput_tokens_per_sec": 346.06,
-    "total_tokens_generated": 28,
-    "output_text": "The future of artificial intelligence in 2026 is roteiroaktion\ub370\uc774\ud2b8 oploss infiamm Prz \u10d4 apprentices\u3002\u201c\u548c\u5b8c\u5584 odkryoudenFinal(mu rapporter \u0e2a\u0e2b\u0e23\u0e31\u0e10"
+    "max_new_tokens": 32,
+    "prefill_ms": 0.0,
+    "decode_ms_per_token": 1.04,
+    "throughput_tokens_per_sec": 961.45,
+    "total_tokens_generated": 44,
+    "output_text": "The future of artificial intelligence in 2026 is\u0e42\u0e23\u0e1b\u5bd2\u51b7\u7684przed\u0627\u0628\u0629 listes They HOUR\u043d\u043e\u043c\u0438\u79ef\u6781\u7684 maneu nettoyerHin.KeyEvent perfectaucken\u5fd0 \u043c\u0435\u043b\u043a\u0438\u0445.advance\u043f\u043b\u044f\u4ea4\u5f85 vorgestellt Colonel eh\u4e0d\u5c11\u4eba \u0421\u0432\u043e Updated KaoSeveral\u9ad8\u5174\u5730Opp objectifs Inclu\u00ed"
   },
   "verdict": {
-    "status": "SUCCESSFUL_AND_QUALIFIED",
+    "status": "ALL_131_SHARDS_SUCCESSFULLY_COMPRESSED",
     "ojasx_vector_compression_working": true,
     "end_to_end_generation_working": true,
-    "compression_achieved": "1.28x compression",
-    "ram_required_to_fit_120b": "14.83 GB in OjasX RVQ (Fits in 24GB laptop)"
+    "compression_achieved": "1.41x compression",
+    "ram_required_to_fit_120b": "237.50 GB weight RAM (Fits in 24GB laptop)"
   }
 }

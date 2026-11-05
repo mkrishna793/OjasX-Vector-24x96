@@ -12,3 +12,7 @@ build/
 dist/
 *.egg-info/
 .DS_Store
+qwen38_120b_ojasx_v1/
+*.swp
+*.swo
+

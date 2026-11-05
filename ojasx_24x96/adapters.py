@@ -24,6 +24,7 @@ from .module import (
     ResidualVQLinear,
     _expert_activation,
     _expert_gate_limit,
+    _infer_fused_expert_dims,
     _layer_kind,
     _shared_weight_ids,
 )
@@ -613,10 +614,12 @@ def apply_quantization_plan(
                 device=parameter.device,
             )
 
+        dims = _infer_fused_expert_dims(module)
+        assert dims is not None
         replacement = ResidualVQFusedExperts(
-            int(module.num_experts),
-            int(module.hidden_dim),
-            int(module.intermediate_dim),
+            dims[0],
+            dims[1],
+            dims[2],
             gate_up_proj=projection("gate_up_proj"),
             down_proj=projection("down_proj"),
             act_fn=_expert_activation(module),

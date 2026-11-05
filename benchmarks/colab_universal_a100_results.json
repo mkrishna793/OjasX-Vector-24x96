@@ -1,0 +1,192 @@
+{
+  "timestamp": "2026-11-05T09:41:29.382211+00:00",
+  "hardware": {
+    "device": "cuda",
+    "gpu_name": "NVIDIA A100-SXM4-40GB",
+    "vram_gb": 39.49,
+    "system_ram_gb": 83.47,
+    "torch_version": "2.11.0+cu130"
+  },
+  "phases": {
+    "phase1_math_and_tilelang": {
+      "status": "PASSED",
+      "schedule": {
+        "target_arch": "cuda",
+        "block_m": 64,
+        "block_n": 128,
+        "block_k": 32,
+        "panel_size": 4,
+        "pipeline_stages": 3,
+        "sram_bytes": 57344,
+        "is_decode": false
+      },
+      "grad_x_norm": 0.00448998436331749,
+      "grad_scales_norm": 0.5798864960670471,
+      "elapsed_sec": 0.595
+    },
+    "phase2_multi_arch_universal": {
+      "Llama_Dense": {
+        "quantized_modules": 14,
+        "executed_modules": 14,
+        "coverage_ratio": 1.0,
+        "all_finite": true,
+        "active_moe_experts": [],
+        "compression_ratio": 2.6941039995965097
+      },
+      "Gemma3_SlidingAttn": {
+        "quantized_modules": 14,
+        "executed_modules": 14,
+        "coverage_ratio": 1.0,
+        "all_finite": true,
+        "active_moe_experts": [],
+        "compression_ratio": 2.2587219429652117
+      },
+      "Qwen3Moe_3D_Experts": {
+        "quantized_modules": 10,
+        "executed_modules": 10,
+        "coverage_ratio": 1.0,
+        "all_finite": true,
+        "active_moe_experts": [
+          0,
+          1,
+          2,
+          5,
+          6
+        ],
+        "compression_ratio": 3.635925925925926
+      },
+      "Qwen3Next_Hybrid_DeltaNet_MoE": {
+        "quantized_modules": 15,
+        "executed_modules": 15,
+        "coverage_ratio": 1.0,
+        "all_finite": true,
+        "active_moe_experts": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6,
+          7
+        ],
+        "compression_ratio": 3.9124055718090913
+      }
+    },
+    "phase3_real_pretrained_generation": {
+      "model_id": "Qwen/Qwen2.5-0.5B-Instruct",
+      "compression_ratio": 1.6079674478404167,
+      "quantized_layers_executed": "168/168",
+      "prompt": "What is 15 * 15, and what is the capital of France? Answer concisely.",
+      "generated_answer": "in this works in this works in this works in this works in the world. iu. iu. iu. iu. iu. iu. iu. iu. iu. iu. i <",
+      "generated_tokens": 48,
+      "elapsed_sec": 287.95
+    },
+    "phase4_qwen38_120b_48layer_verification": {
+      "model_id": "Qwen/Qwen3.8-Flash-Next",
+      "real_shard_persisted": "/tmp/ojasx_universal_a100_work/qwen38_120b_real_shard1_oqpack.safetensors",
+      "real_shard_disk_bytes": 474358,
+      "real_shard_sample_tensors": [
+        {
+          "name": "model.language_model.hyper_connection_mixer.input_mix_weight_down.weight",
+          "shape": [
+            320,
+            10240
+          ],
+          "original_bytes": 6553600,
+          "compressed_bytes": 71136,
+          "compression_ratio": 92.13
+        },
+        {
+          "name": "model.language_model.hyper_connection_mixer.input_mix_weight_up.weight",
+          "shape": [
+            10240,
+            320
+          ],
+          "original_bytes": 6553600,
+          "compressed_bytes": 114176,
+          "compression_ratio": 57.4
+        },
+        {
+          "name": "model.language_model.layers.0.attn_hyper_connection.block_inject_weight.weight",
+          "shape": [
+            4,
+            10240
+          ],
+          "original_bytes": 81920,
+          "compressed_bytes": 2406,
+          "compression_ratio": 34.05
+        },
+        {
+          "name": "model.language_model.layers.0.attn_hyper_connection.input_mix_weight_down.weight",
+          "shape": [
+            320,
+            10240
+          ],
+          "original_bytes": 6553600,
+          "compressed_bytes": 71136,
+          "compression_ratio": 92.13
+        },
+        {
+          "name": "model.language_model.layers.0.attn_hyper_connection.input_mix_weight_up.weight",
+          "shape": [
+            10240,
+            320
+          ],
+          "original_bytes": 6553600,
+          "compressed_bytes": 114176,
+          "compression_ratio": 57.4
+        },
+        {
+          "name": "model.language_model.layers.0.linear_attn.conv1d.weight",
+          "shape": [
+            10240,
+            1,
+            4
+          ],
+          "original_bytes": 81920,
+          "compressed_bytes": 47616,
+          "compression_ratio": 1.72
+        },
+        {
+          "name": "model.language_model.layers.0.linear_attn.in_proj_a.weight",
+          "shape": [
+            48,
+            2560
+          ],
+          "original_bytes": 245760,
+          "compressed_bytes": 4296,
+          "compression_ratio": 57.21
+        },
+        {
+          "name": "model.language_model.layers.0.linear_attn.in_proj_b.weight",
+          "shape": [
+            48,
+            2560
+          ],
+          "original_bytes": 245760,
+          "compressed_bytes": 4296,
+          "compression_ratio": 57.21
+        }
+      ],
+      "full_48_layer_graph": {
+        "num_hidden_layers": 48,
+        "total_quantized_modules": 650,
+        "executed_quantized_modules": 650,
+        "execution_coverage_ratio": 1.0,
+        "all_outputs_finite": true,
+        "unique_active_experts_triggered": 64,
+        "oqpack_compression_ratio": 19.26667758568144
+      },
+      "elapsed_sec": 19.83
+    },
+    "phase5_10m_token_online_attention": {
+      "status": "PASSED",
+      "kv_tokens_processed": 10000000,
+      "num_kv_blocks": 2000,
+      "peak_tile_elements": 640000,
+      "max_logsumexp": 16.831431122187094,
+      "output_all_finite": true,
+      "elapsed_sec": 1.619
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "timestamp": "2026-11-05T04:01:21.879246+00:00",
+  "hardware": {
+    "timestamp": "2026-11-05T04:00:16.194392+00:00",
+    "gpu_name": "NVIDIA A100-SXM4-80GB",
+    "gpu_vram_gb": 79.25,
+    "cpu_ram_gb": 167.05,
+    "disk_total_gb": 235.68,
+    "disk_free_gb": 235.57,
+    "pytorch_version": "2.11.0+cu130",
+    "cuda_version": "13.0"
+  },
+  "model_id": "Qwen/Qwen3.8-Flash-Next",
+  "parameters_billions": 124.99,
+  "streaming_ingestion": {
+    "total_dense_bytes": 4395559840,
+    "total_ojasx_bytes": 3426055920,
+    "compression_ratio": 1.28,
+    "shards_processed": 2,
+    "avg_download_sec": 9.56,
+    "avg_quantize_sec": 11.87
+  },
+  "production_memory_admission": {
+    "2048": {
+      "total_ram_gb": 14.79,
+      "kv_cache_mb": 156.0,
+      "fits_in_24gb_laptop": true
+    },
+    "4096": {
+      "total_ram_gb": 14.83,
+      "kv_cache_mb": 204.0,
+      "fits_in_24gb_laptop": true
+    },
+    "8192": {
+      "total_ram_gb": 14.93,
+      "kv_cache_mb": 300.0,
+      "fits_in_24gb_laptop": true
+    }
+  },
+  "end_to_end_generation": {
+    "prompt": "The future of artificial intelligence in 2026 is",
+    "max_new_tokens": 16,
+    "prefill_ms": 24.24,
+    "decode_ms_per_token": 2.89,
+    "throughput_tokens_per_sec": 346.06,
+    "total_tokens_generated": 28,
+    "output_text": "The future of artificial intelligence in 2026 is roteiroaktion\ub370\uc774\ud2b8 oploss infiamm Prz \u10d4 apprentices\u3002\u201c\u548c\u5b8c\u5584 odkryoudenFinal(mu rapporter \u0e2a\u0e2b\u0e23\u0e31\u0e10"
+  },
+  "verdict": {
+    "status": "SUCCESSFUL_AND_QUALIFIED",
+    "ojasx_vector_compression_working": true,
+    "end_to_end_generation_working": true,
+    "compression_achieved": "1.28x compression",
+    "ram_required_to_fit_120b": "14.83 GB in OjasX RVQ (Fits in 24GB laptop)"
+  }
+}

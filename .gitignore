@@ -15,4 +15,9 @@ dist/
 qwen38_120b_ojasx_v1/
 *.swp
 *.swo
+test_native_lut
+ojasx_run
+*.vo
+*.glob
+.*.aux
 
